@@ -17,17 +17,24 @@ export default {
   primaryDarkest: '#01293F',
 
   /* GREY */
-  greyLightest: '#F1F1F1',
-  greyLighter: '#E3E3E3',
-  greyLight: '#BABAB9',
-  greyBright: '#9E9E9D',
-  grey: '#757473',
-  greyDim: '#696868',
-  greyDark: '#525151',
-  greyDarker: '#3B3A3A',
-  greyDarkest: '#171717',
+  greyLightest: '#f2f2f2',
+  greyLighter: '#e5e5e5',
+  greyLight: '#d8d8d8',
+  greyBright: '#cbcbcb',
+  grey: '#a4a4a4',
+  greyDim: '#7d7d7d',
+  greyDark: '#717171',
+  greyDarker: '#585858',
+  greyDarkest: '#4b4b4b',
 
   /* BACKGROUNDS */
   bckgYellow: '#FFDF1C',
   bckgYellowLight: '#FBEECA',
+
+  /* TEXT TYPE */
+
+  textBlue: '#0017E2',
+  textRed: '#FF0000',
+  textTurkoise: '#0096AA',
+  textPurple: '#AD00FF',
 }

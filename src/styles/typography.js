@@ -21,9 +21,9 @@ export default {
     bold: 600,
   },
   fontSize: {
-    smallest: '1.4rem',
-    small: '1.6rem',
-    regular: '1.8rem',
+    smallest: '1rem',
+    small: '1.2rem',
+    regular: '1.4rem',
     big: '2.4rem',
     bigger: '3.2rem',
     huge: '3.6rem',

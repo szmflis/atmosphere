@@ -40,6 +40,9 @@ const Cities = () => {
             windSpeed={results.wind.speed}
             windDirection={results.wind.deg}
             weatherArr={results.weather}
+            country={results.sys.country}
+            sunrise={results.sys.sunrise}
+            sunset={results.sys.sunset}
           />
       }
     </div>

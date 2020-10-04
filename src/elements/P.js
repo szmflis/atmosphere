@@ -5,7 +5,7 @@ export const P = styled.h3`
 
   /* Typography */
   font-size: ${({ size }) => size || theme.fontSize.regular};
-  font-weight: ${({ weight }) => weight || theme.fontWeight.regular};
+  font-weight: ${({ bold }) => bold ? theme.fontWeight.semibold : theme.fontWeight.regular};
 
   /* Styling */
   color: ${({ color }) => color};
@@ -21,4 +21,6 @@ export const P = styled.h3`
     without wrapping them inside other container
   */
   max-width: ${({ maxWidth }) => maxWidth};
+
+  opacity: ${({ opaque }) => opaque ? 0.5 : 1};
 `

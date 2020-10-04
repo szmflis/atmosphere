@@ -58,7 +58,7 @@ const Navbar = () => {
   return (
     <Wrapper>
       <NavElementWrapper>
-        <NavElement to="/">Weather</NavElement>
+        <NavElement to="/">atmosphere</NavElement>
       </NavElementWrapper>
       <NavElementWrapper></NavElementWrapper>
       <NavElementWrapper justify="flex-end">

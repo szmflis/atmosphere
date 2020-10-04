@@ -34,7 +34,7 @@ export const H1 = styled.h1`
 
   /* Additional props */
   text-align: ${({ alignCenter }) => alignCenter ? 'center' : 'start'};
-  
+  opacity: ${({ opaque }) => opaque ? 0.5 : 1};
 `
 
 export const H2 = styled(H1)`
