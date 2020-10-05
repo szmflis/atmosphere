@@ -7,6 +7,8 @@ export const P = styled.h3`
   font-size: ${({ size }) => size || theme.fontSize.regular};
   font-weight: ${({ bold }) => bold ? theme.fontWeight.semibold : theme.fontWeight.regular};
 
+  line-height: 1.6;
+
   /* Styling */
   color: ${({ color }) => color};
   padding: ${({ pad }) => pad || 0};

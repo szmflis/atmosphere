@@ -26,6 +26,7 @@ export const H1 = styled.h1`
   font-size: ${theme.fontSize.hugeExtra};
   font-weight: ${({ bold }) => bold ? theme.fontWeight.semibold : theme.fontWeight.regular};
   color: ${({ color }) => color};
+  line-height: 1.2;
 
   /* Adjustable whitespace */
   padding: ${({ pad }) => pad || 0};
