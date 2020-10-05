@@ -1,31 +1,46 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
+import { FlexContainer } from '../elements/FlexContainer'
 import { Button } from '../elements/Button'
 import { getCityByName } from '../api/openWeather'
 import City from '../components/City'
+import AutoInput from '../components/AutoInput'
+
+const Wrapper = styled(FlexContainer)`
+  width: 100%;
+`
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+`
 
 const Cities = () => {
   const [results, setResults] = useState(null)
-  const [query, setQuery] = useState('')
 
   const getWeather = async (event) => {
     event.preventDefault()
-    console.log(query)
-    const data = await getCityByName(query)
+    const data = await getCityByName(event.target.cityInput.value)
     setResults(data)
     console.log(data)
   }
 
   return (
-    <div>
-      <form onSubmit={getWeather}>
-        <input type="text" value={query} onChange={({ target }) => setQuery(target.value)} />
+
+    <Wrapper>
+      <Form onSubmit={getWeather} autoComplete="off">
+        <AutoInput />
         <Button type="submit" variant="primary">
           Get Weather
         </Button>
-      </form>
+      </Form>
       {
         results === null
-          ? null
+          ? <div></div>
           : <City
             id={results.id}
             currentTime={results.dt}
@@ -43,9 +58,11 @@ const Cities = () => {
             country={results.sys.country}
             sunrise={results.sys.sunrise}
             sunset={results.sys.sunset}
+            rain={results.rain}
           />
       }
-    </div>
+    </Wrapper>
+
   )
 }
 

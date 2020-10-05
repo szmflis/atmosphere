@@ -1,24 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import dayjs from 'dayjs'
 import { FlexContainer } from '../elements/FlexContainer'
 import { theme } from '../styles/theme'
 import { P } from '../elements/P'
 import { H4 } from '../elements/H'
-import { Img } from '../elements/Img'
+import { Icon } from '../elements/Img'
 import { iconGetter } from '../utils/iconGetter'
+import { Button } from '../elements/Button'
 import moon from '../assets/moon.svg'
 import sun from '../assets/sun.svg'
+import arrow from '../assets/arrow.png'
 
 /*
   City is purely representational component displaying data gathered
   from openweathermap api, example data is on the bottom of this file.
+  Only logic elements of it include whether or not to render additional data.
 */
 
 const Wrapper = styled(FlexContainer)`
-  width: 500px;
-  box-shadow: ${theme.effects.boxShadowPrimary};
+  width: 450px;
+
   margin-top: 100px;
+  box-shadow: ${theme.effects.boxShadowPrimary};
 `
 
 const InlineTextWrapper = styled.div`
@@ -49,7 +54,7 @@ const Temperatures = styled(FlexContainer)`
 const Temperature = styled(FlexContainer)`
 `
 
-const RainPressureHumidity = styled(FlexContainer)`
+const OtherInfo = styled(FlexContainer)`
   background-color: ${theme.colors.greyLightest};
   padding: 2rem;
   width: 100%;
@@ -66,12 +71,31 @@ const SunriseSundown = styled(FlexContainer)`
   background-color: ${theme.colors.greyLighter};
 `
 
+const WindInformation = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 2rem;
+  background-color: ${theme.colors.greyBright};
+  justify-content: space-between;
+`
+
+const Arrow = styled(Icon)`
+  transform: ${({ deg }) => `rotate(${deg}deg)`};
+`
+
+const Footer = styled(FlexContainer)`
+  width: 100%;
+  background-color: ${theme.colors.greyLighter};
+  padding: 2rem;
+`
+
 const City = ({
   id, currentTime, name, lat, lon,
   country, sunrise, sunset,
   temp, tempMax, tempMin, pressure, humidity,
   windSpeed, windDirection, weatherArr,
-  clouds, rain, snow
+  rain, snow
 }) => {
   return (
     <Wrapper>
@@ -83,9 +107,9 @@ const City = ({
           </InlineTextWrapper>
           <P size={theme.fontSize.small} opaque>Latitude {lat}</P>
           <P size={theme.fontSize.small} opaque>Longitude {lon}</P>
-          <P color={theme.colors.textBlue} bold>{weatherArr[0].main}</P>
+          <P color={theme.colors.textPurple} bold>{weatherArr[0].main}</P>
         </div>
-        <Img src={iconGetter(weatherArr[0].icon)} />
+        <Icon src={iconGetter(weatherArr[0].icon)} />
       </Header>
       <Temperatures>
         <Temperature>
@@ -113,13 +137,7 @@ const City = ({
         </Temperature>
       </Temperatures>
 
-      <RainPressureHumidity>
-        <InlineTextWrapper pad="1rem 0rem">
-          <P bold>Rain (past 3 hours):&nbsp;</P>
-          <P bold color={theme.colors.textTurkoise}>{rain['1h']}&nbsp;</P>
-          <P opaque>mm</P>
-        </InlineTextWrapper>
-
+      <OtherInfo>
         <InlineTextWrapper pad="1rem 0rem">
           <P bold>Pressure:&nbsp;</P>
           <P bold color={theme.colors.textPurple}>{pressure}&nbsp;</P>
@@ -131,41 +149,66 @@ const City = ({
           <P bold color={theme.colors.textTurkoise}>{humidity}&nbsp;</P>
           <P opaque>%</P>
         </InlineTextWrapper>
-      </RainPressureHumidity>
+        <InlineTextWrapper pad="1rem 0rem">
+          <P bold>Rain (past 3 hours):&nbsp;</P>
+          <P bold color={theme.colors.textTurkoise}>{rain['3h']}&nbsp;</P>
+          <P opaque>mm</P>
+        </InlineTextWrapper>
+
+        <InlineTextWrapper pad="1rem 0rem">
+          <P bold>Snow (past 3 hours):&nbsp;</P>
+          <P bold color={theme.colors.textTurkoise}>{snow['3h']}&nbsp;</P>
+          <P opaque>%</P>
+        </InlineTextWrapper>
+      </OtherInfo>
 
       <SunriseSundown>
         <FlexContainer>
-          <Img src={sun} size="75px" />
-          <P>sunrise at {sunrise}</P>
+          <Icon src={sun} size="75px" pad="1rem" />
+          <P>sunrise at {dayjs.unix(sunrise).format('HH:mm')}</P>
         </FlexContainer>
         <FlexContainer>
-          <Img src={moon} size="75px" />
-          <P>sunrise at {sunset}</P>
+          <Icon src={moon} size="75px" pad="1rem" />
+          <P>sunrise at {dayjs.unix(sunset).format('HH:mm')}</P>
         </FlexContainer>
       </SunriseSundown>
-      {/* <p>rain: {rain['1h']}</p>
-      <p>snow: {snow['3h']}</p>
-      <p>clouds: {clouds.all}</p>
-      <p>id: {id}</p>
-      <p>currentTime: {currentTime}</p>
-      <p>name: {name}</p>
-      <p>lat: {lat}</p>
-      <p>lon: {lon}</p>
-      <p>temp: {temp}</p>
-      <p>tempMax: {tempMax}</p>
-      <p>tempMin: {tempMin}</p>
-      <p>pressure: {pressure}</p>
-      <p>humidity: {humidity}</p>
-      <p>windSpeed: {windSpeed}</p>
-      <p>windDirection: {windDirection}</p>
-      {
-        weatherArr.id === null
-          ? null
-          : weatherArr.map(weather => <div key={weather.id}>{weather.main}</div>)
-      } */}
+
+      <WindInformation>
+        <FlexContainer align="flex-start">
+          <InlineTextWrapper pad="1rem 0rem">
+            <P bold>Wind speed:&nbsp;</P>
+            <P bold color={theme.colors.textTurkoise}>{windSpeed}&nbsp;</P>
+            <P opaque>m/s</P>
+          </InlineTextWrapper>
+          <InlineTextWrapper pad="1rem 0rem">
+            <P bold>Wind direction:&nbsp;</P>
+            <P bold color={theme.colors.textTurkoise}>{windDirection}&nbsp;</P>
+            <P opaque>deg</P>
+          </InlineTextWrapper>
+        </FlexContainer>
+        <FlexContainer>
+          <P>N</P>
+          <Arrow src={arrow} deg={windDirection} size="50px" />
+          <P>S</P>
+        </FlexContainer>
+
+      </WindInformation>
+      <Footer>
+        <P opaque>
+          This data have been gathered at {dayjs.unix(currentTime).format('HH:mm DD/MM/YY')}
+        </P>
+        <P opaque marBot="2rem">
+          Courtesy of openweathermap.org API
+        </P>
+        <Button variant="primary" type="button">
+          More
+        </Button>
+      </Footer>
     </Wrapper>
   )
 }
+
+/* PropTypes. */
 
 City.propTypes = {
   id: PropTypes.number.isRequired,
@@ -189,31 +232,25 @@ City.propTypes = {
     description: PropTypes.string,
     icon: PropTypes.string
   })),
-  clouds: PropTypes.shape({
-    all: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-  }),
   rain: PropTypes.shape({
-    '1h': PropTypes.number,
-    '3h': PropTypes.number,
+    '1h': PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    '3h': PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }),
   snow: PropTypes.shape({
-    '1h': PropTypes.number,
-    '3h': PropTypes.number,
+    '1h': PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    '3h': PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }),
-  // TODO finish proptypes after testing
 }
 
 City.defaultProps = {
-  clouds: { all: 'No information about clouds available' },
   weatherArr: [{ id: null }],
-  rain: { '1h': 0, '3h': 0 },
-  snow: { '1h': 0, '3h': 0 },
+  rain: { '1h': 'No available information', '3h': 'No available information' },
+  snow: { '1h': 'No available information', '3h': 'No available information' },
 }
 
 export default City
 
 /*
-
   Example response which data is to be presented by
   City.js component:
     {

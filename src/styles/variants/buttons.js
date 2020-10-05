@@ -3,9 +3,9 @@ import colors from '../colors'
 
 export default {
   primary: {
-    background: colors.primaryDark,
+    background: colors.primary,
     '&:hover': {
-      background: lighten(0.1, colors.primaryDark),
+      background: lighten(0.1, colors.primary),
     }
   },
   secondary: {

@@ -53,9 +53,9 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden!important;
   }
 
-  /* ::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     display: none;
-  } */
+  }
 
   body {
     font-family: ${theme.fonts.montserrat};

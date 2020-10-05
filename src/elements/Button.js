@@ -7,6 +7,7 @@ const buttonVariant = variant({ variants: buttons })
 
 export const Button = styled.button`
   /* Counteracting effects applied by react-router-dom Link */
+  cursor: pointer;
   text-decoration: none;
   outline: none;
   border: none;
