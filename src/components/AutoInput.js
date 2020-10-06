@@ -29,9 +29,7 @@ const StyledHereInput = styled.input`
 `
 
 const SuggestionsDropdown = styled.div`
-  list-style: none;
-  width: 800px;
-  transform: translateY(50px);
+  transform: translateY(60px);
   position: absolute;
   /* visibility and height are set to avoid layout shifts on rendering  */
   visibility: ${({ suggestions }) => suggestions.length === 0 ? 'hidden' : 'visible'};
@@ -41,6 +39,8 @@ const SuggestionsDropdown = styled.div`
   align-items: flex-start;
   border-radius: 8px;
   padding: 0;
+
+  width: 800px;
   @media (max-width: 900px) {
     width: 90vw;
   }
@@ -110,18 +110,18 @@ const AutoInput = () => {
         selectedSuggestion because states are asynchronous
         and query would always be one change behind selectedSuggestion
       */
-      setQuery(suggestions[selectedSuggestion + 1].title)
+      setQuery(suggestions[selectedSuggestion + 1].name)
     }
 
     // upstroke
     if (keyCode === 38 && selectedSuggestion !== 0) {
       setSelectedSuggestion(selectedSuggestion - 1)
-      setQuery(suggestions[selectedSuggestion - 1].title)
+      setQuery(suggestions[selectedSuggestion - 1].name)
     }
 
     // enter
     if (keyCode === 13) {
-      setQuery(suggestions[selectedSuggestion].title)
+      setQuery(suggestions[selectedSuggestion].name)
       setSuggestions([])
     }
 

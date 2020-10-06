@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { AUTOCOMPLETE_API } from '../utils/urls'
 
 export const getAutocompletions = async (query) => {
-  const url = `http://autocomplete.travelpayouts.com/places2?term=${query}&locale=en&types["city"]`
+  const url = `${AUTOCOMPLETE_API.BASE_URL}?term=${query}&locale=en&types["city"]`
 
   const response = await axios.get(url)
 
@@ -10,7 +11,9 @@ export const getAutocompletions = async (query) => {
     /* make notification component&state redux */
   }
 
-  return response.data.map(suggestion => {
+  const limitedArr = response.data.slice(0, 3)
+
+  return limitedArr.map(suggestion => {
     return {
       name: suggestion.name,
       additionalInfo: suggestion.country_name

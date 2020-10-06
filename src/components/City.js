@@ -21,8 +21,7 @@ import arrow from '../assets/arrow.png'
 
 const Wrapper = styled(FlexContainer)`
   width: 450px;
-
-  margin-top: 100px;
+  margin: 3rem;
   box-shadow: ${theme.effects.boxShadowPrimary};
 `
 

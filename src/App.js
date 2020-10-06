@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Layout from './layout/Layout'
-import Home from './pages/Home'
+import Home from './pages/homepage/Home'
 import Navbar from './components/Navbar'
 import Cities from './pages/Cities'
 

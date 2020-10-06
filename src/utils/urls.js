@@ -22,6 +22,12 @@
 
 export const OPEN_WEATHER_URLS = {
   OPEN_WEATHER_API_KEY: process.env.REACT_APP_OPEN_WEATHER_API_KEY,
-  BASE_URL: 'https://api.openweathermap.org/data/2.5/weather',
+  BASE_URL: 'https://api.openweathermap.org/data/2.5',
+  QUERY_NAME: 'weather',
+  QUERY_IDS: 'group',
   ICON_URL: 'https://openweathermap.org/img/wn',
+}
+
+export const AUTOCOMPLETE_API = {
+  BASE_URL: process.env.REACT_APP_AUTOCOMPLETE_URL,
 }
