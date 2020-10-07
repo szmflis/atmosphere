@@ -7,17 +7,21 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { theme } from '../styles/theme'
-import { getAutocompletions } from '../api/autocomplete'
+import { getAutocomplete } from '../api/autocomplete'
 
 const StyledHereInput = styled.input`
-  font-size: ${({ fontSize }) => fontSize || theme.fontSize.big};
   background-color: ${theme.colors.greyLighter};
-  padding: ${({ padding }) => padding || '10px'};
+  font-size: ${theme.fontSize.big};
+
+  padding: 2rem;
   margin: 2rem;
+
   width: 800px;
   height: 50px;
-  border: none;
   border-radius: 8px;
+
+  position: relative;
+  border: none;
   box-shadow: ${theme.effects.boxShadowPrimary};
   
   &:focus {
@@ -29,16 +33,17 @@ const StyledHereInput = styled.input`
 `
 
 const SuggestionsDropdown = styled.div`
-  transform: translateY(60px);
-  position: absolute;
-  /* visibility and height are set to avoid layout shifts on rendering  */
   visibility: ${({ suggestions }) => suggestions.length === 0 ? 'hidden' : 'visible'};
-  margin-top: 5px;
+  
+  transform: translateY(23rem);
+  position: absolute;
+  top: 0;
+  
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
   border-radius: 8px;
-  padding: 0;
 
   width: 800px;
   @media (max-width: 900px) {
@@ -47,12 +52,14 @@ const SuggestionsDropdown = styled.div`
 `
 
 const Suggestion = styled.p`
-  width: 100%;
-  margin: 0;
-  padding: 10px;
   color: ${theme.colors.primaryDarkExtra};
   font-size: ${theme.fontSize.regular};
   font-weight: ${theme.fontWeight.semibold};
+  
+  width: 100%;
+  padding: 1rem;
+  margin: 0;
+
   background-color: ${({
     selectedSuggestion, index
   }) => selectedSuggestion === index
@@ -92,7 +99,7 @@ const AutoInput = () => {
     setQuery(target.value)
 
     if (target.value.length > 2) {
-      const placeList = await getAutocompletions(target.value)
+      const placeList = await getAutocomplete(target.value)
       setSuggestions(placeList)
       console.log(placeList)
     }

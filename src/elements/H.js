@@ -1,20 +1,6 @@
 import styled from 'styled-components'
 import { theme } from '../styles/theme'
 
-export const H = styled.h3`
-  font-size: ${({ size }) => size || theme.fontSize.bigger};
-  font-weight: ${({ weight }) => weight || theme.fontWeight.regular};
-  color: ${({ color }) => color};
-  padding: ${({ pad }) => pad || 0};
-  margin: ${({ mar }) => mar || 0};
-
-  text-align: ${({ alignText }) => alignText};
-
-  margin-bottom: ${({ marBot }) => marBot || 0};
-`
-
-/* Above is to delete once everything using it is refactored to use H1, H2... */
-
 /*
   H1 is the main header element
   all other H elements can be styled through it's props

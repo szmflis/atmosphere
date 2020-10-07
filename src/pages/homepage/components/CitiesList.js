@@ -15,9 +15,12 @@ const CitiesList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const resultData = await getCities()
-      console.log(resultData)
-      setCities(resultData)
+      const data = await getCities()
+      if (!data.status && !data.error) {
+        setCities(data)
+      } else {
+        // TODO redux error handling notification
+      }
     }
     fetchData()
   }, [])

@@ -16,7 +16,9 @@ const Form = styled.form`
   align-items: center;
   justify-content: center;
 
+  padding: 16rem;
   width: 100%;
+  position: relative;
 `
 
 const Cities = () => {
@@ -25,8 +27,11 @@ const Cities = () => {
   const getWeather = async (event) => {
     event.preventDefault()
     const data = await getCityByName(event.target.cityInput.value)
-    setResults(data)
-    console.log(data)
+    if (!data.status && !data.error) {
+      setResults(data)
+    } else {
+      // TODO redux notification as exception handling
+    }
   }
 
   return (

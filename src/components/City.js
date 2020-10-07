@@ -6,7 +6,7 @@ import { FlexContainer } from '../elements/FlexContainer'
 import { theme } from '../styles/theme'
 import { P } from '../elements/P'
 import { H4 } from '../elements/H'
-import { Icon } from '../elements/Img'
+import { Icon } from '../elements/Icon'
 import { iconGetter } from '../utils/iconGetter'
 import { Button } from '../elements/Button'
 import moon from '../assets/moon.svg'
@@ -23,58 +23,53 @@ const Wrapper = styled(FlexContainer)`
   width: 450px;
   margin: 3rem;
   box-shadow: ${theme.effects.boxShadowPrimary};
+
+  @media (max-width: 500px) {
+    width: 100%;
+    margin: 1rem;
+  }
 `
 
 const InlineTextWrapper = styled.div`
   display: flex;
   flex-direction: row;
-
   padding: ${({ pad }) => pad || 0};
 `
 
-const Header = styled(FlexContainer)`
-  flex-direction: row;
-  justify-content: space-between;
-  
-  background-color: ${theme.colors.greyBright};
+const CityCardSection = styled(FlexContainer)`
   padding: 2rem;
   width: 100%;
 `
 
-const Temperatures = styled(FlexContainer)`
+const Header = styled(CityCardSection)`
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: ${theme.colors.greyBright};
+`
+
+const Temperatures = styled(CityCardSection)`
   flex-direction: row;
   justify-content: space-around;
-  width: 100%;
-  padding: 2rem;
-  
   background-color: ${theme.colors.greyLighter};
 `
 
 const Temperature = styled(FlexContainer)`
 `
 
-const OtherInfo = styled(FlexContainer)`
+const OtherInfo = styled(CityCardSection)`
   background-color: ${theme.colors.greyLightest};
-  padding: 2rem;
-  width: 100%;
-
   align-items: flex-start;
 `
 
-const SunriseSundown = styled(FlexContainer)`
+const SunriseSundown = styled(CityCardSection)`
   flex-direction: row;
   justify-content: space-around;
-
-  width: 100%;
-  padding: 2rem;
   background-color: ${theme.colors.greyLighter};
 `
 
-const WindInformation = styled.div`
+const WindInformation = styled(CityCardSection)`
   display: flex;
   flex-direction: row;
-  width: 100%;
-  padding: 2rem;
   background-color: ${theme.colors.greyBright};
   justify-content: space-between;
 `
@@ -83,10 +78,8 @@ const Arrow = styled(Icon)`
   transform: ${({ deg }) => `rotate(${deg}deg)`};
 `
 
-const Footer = styled(FlexContainer)`
-  width: 100%;
+const Footer = styled(CityCardSection)`
   background-color: ${theme.colors.greyLighter};
-  padding: 2rem;
 `
 
 const City = ({
@@ -193,10 +186,10 @@ const City = ({
 
       </WindInformation>
       <Footer>
-        <P opaque>
+        <P opaque alignCenter>
           This data have been gathered at {dayjs.unix(currentTime).format('HH:mm DD/MM/YY')}
         </P>
-        <P opaque marBot="2rem">
+        <P opaque marBot="2rem" alignCenter>
           Courtesy of openweathermap.org API
         </P>
         <Button variant="primary" type="button">
@@ -243,8 +236,8 @@ City.propTypes = {
 
 City.defaultProps = {
   weatherArr: [{ id: null }],
-  rain: { '1h': 'No available information', '3h': 'No available information' },
-  snow: { '1h': 'No available information', '3h': 'No available information' },
+  rain: { '1h': 'No data', '3h': 'No data' },
+  snow: { '1h': 'No data', '3h': 'No data' },
 }
 
 export default City
