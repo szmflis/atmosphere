@@ -4,6 +4,7 @@ import Layout from './layout/Layout'
 import Home from './pages/homepage/Home'
 import Navbar from './components/Navbar'
 import Cities from './pages/Cities'
+import Citypage from './pages/citypage/Citypage'
 
 const App = () => {
   return (
@@ -15,6 +16,9 @@ const App = () => {
         </Route>
         <Route exact path="/cities">
           <Cities />
+        </Route>
+        <Route exact path="/city">
+          <Citypage />
         </Route>
       </Switch>
     </Layout>

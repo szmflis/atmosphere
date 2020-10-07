@@ -33,8 +33,8 @@ export default {
 
   /* TEXT TYPE */
 
-  textBlue: '#0017E2',
+  textBlue: '#003EDE',
   textRed: '#FF0000',
-  textTurkoise: '#0096AA',
-  textPurple: '#AD00FF',
+  textTurkoise: '#006978',
+  textPurple: '#850091',
 }

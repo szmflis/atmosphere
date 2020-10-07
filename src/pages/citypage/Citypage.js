@@ -1,10 +1,19 @@
+/*
+  City page takes input data in form of city name and returns
+  CityDetailed.js component passing it it's id.
+  Id is taken from basic request to openweathermap.org
+
+  Handling of api calls for data for that particular city is then
+  handled via CityDetailed.js
+*/
+
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { FlexContainer } from '../elements/FlexContainer'
-import { Button } from '../elements/Button'
-import { getCityByName } from '../api/openWeather'
-import CityCompactCard from '../components/city/CityCompactCard'
-import AutoInput from '../components/AutoInput'
+import { FlexContainer } from '../../elements/FlexContainer'
+import { Button } from '../../elements/Button'
+import { getCityByName } from '../../api/openWeather'
+import AutoInput from '../../components/AutoInput'
+import CityDetailed from '../../components/city/CityDetailed'
 
 const Wrapper = styled(FlexContainer)`
   width: 100%;
@@ -25,7 +34,7 @@ const Form = styled.form`
   position: relative;
 `
 
-const Cities = () => {
+const Citypage = () => {
   const [results, setResults] = useState(null)
 
   const getWeather = async (event) => {
@@ -39,7 +48,6 @@ const Cities = () => {
   }
 
   return (
-
     <Wrapper>
       <Form onSubmit={getWeather} autoComplete="off">
         <AutoInput />
@@ -50,29 +58,18 @@ const Cities = () => {
       {
         results === null
           ? <div></div>
-          : <CityCompactCard
-            id={results.id}
-            currentTime={results.dt}
-            name={results.name}
+          : <CityDetailed
             lat={results.coord.lat}
             lon={results.coord.lon}
-            temp={results.main.temp}
-            tempMax={results.main.temp_max}
-            tempMin={results.main.temp_min}
-            pressure={results.main.pressure}
-            humidity={results.main.humidity}
-            windSpeed={results.wind.speed}
-            windDirection={results.wind.deg}
-            weatherArr={results.weather}
+            name={results.name}
             country={results.sys.country}
-            sunrise={results.sys.sunrise}
-            sunset={results.sys.sunset}
-            rain={results.rain}
+            tempAvg={results.main.temp}
+            tempMin={results.main.temp_min}
+            tempMax={results.main.temp_max}
           />
       }
     </Wrapper>
-
   )
 }
 
-export default Cities
+export default Citypage

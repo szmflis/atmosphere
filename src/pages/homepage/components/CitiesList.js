@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { getCities } from '../../../api/openWeather'
 import { FlexContainer } from '../../../elements/FlexContainer'
-import City from '../../../components/City'
+import CityCompactCard from '../../../components/city/CityCompactCard'
 
 const Wrapper = styled(FlexContainer)`
   width: 100%;
@@ -30,7 +30,7 @@ const CitiesList = () => {
       {
         cities === null
           ? <div></div>
-          : cities.map(city => <City
+          : cities.map(city => <CityCompactCard
             key={city.id}
             id={city.id}
             currentTime={city.dt}

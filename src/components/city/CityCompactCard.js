@@ -2,21 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
-import { FlexContainer } from '../elements/FlexContainer'
-import { theme } from '../styles/theme'
-import { P } from '../elements/P'
-import { H4 } from '../elements/H'
-import { Icon } from '../elements/Icon'
-import { iconGetter } from '../utils/iconGetter'
-import { Button } from '../elements/Button'
-import moon from '../assets/moon.svg'
-import sun from '../assets/sun.svg'
-import arrow from '../assets/arrow.png'
+import { FlexContainer } from '../../elements/FlexContainer'
+import { theme } from '../../styles/theme'
+import { P } from '../../elements/P'
+import { H4 } from '../../elements/H'
+import { Icon } from '../../elements/Icon'
+import { iconGetter } from '../../utils/iconGetter'
+import { Button } from '../../elements/Button'
+import moon from '../../assets/moon.svg'
+import sun from '../../assets/sun.svg'
+import arrow from '../../assets/arrow.png'
 
 /*
   City is purely representational component displaying data gathered
   from openweathermap api, example data is on the bottom of this file.
-  Only logic elements of it include whether or not to render additional data.
+
+  Used for compact cards on homepage - displaying some current weather data.
+  TODO Change to actually compact version
 */
 
 const Wrapper = styled(FlexContainer)`
@@ -82,7 +84,7 @@ const Footer = styled(CityCardSection)`
   background-color: ${theme.colors.greyLighter};
 `
 
-const City = ({
+const CityCompactCard = ({
   id, currentTime, name, lat, lon,
   country, sunrise, sunset,
   temp, tempMax, tempMin, pressure, humidity,
@@ -132,24 +134,24 @@ const City = ({
       <OtherInfo>
         <InlineTextWrapper pad="1rem 0rem">
           <P bold>Pressure:&nbsp;</P>
-          <P bold color={theme.colors.textPurple}>{pressure}&nbsp;</P>
+          <P bold color={theme.colors.textBlue}>{pressure}&nbsp;</P>
           <P opaque>hPa</P>
         </InlineTextWrapper>
 
         <InlineTextWrapper pad="1rem 0rem">
           <P bold>Humidity:&nbsp;</P>
-          <P bold color={theme.colors.textTurkoise}>{humidity}&nbsp;</P>
+          <P bold color={theme.colors.textBlue}>{humidity}&nbsp;</P>
           <P opaque>%</P>
         </InlineTextWrapper>
         <InlineTextWrapper pad="1rem 0rem">
           <P bold>Rain (past 3 hours):&nbsp;</P>
-          <P bold color={theme.colors.textTurkoise}>{rain['3h']}&nbsp;</P>
+          <P bold color={theme.colors.textBlue}>{rain['3h']}&nbsp;</P>
           <P opaque>mm</P>
         </InlineTextWrapper>
 
         <InlineTextWrapper pad="1rem 0rem">
           <P bold>Snow (past 3 hours):&nbsp;</P>
-          <P bold color={theme.colors.textTurkoise}>{snow['3h']}&nbsp;</P>
+          <P bold color={theme.colors.textBlue}>{snow['3h']}&nbsp;</P>
           <P opaque>%</P>
         </InlineTextWrapper>
       </OtherInfo>
@@ -169,12 +171,12 @@ const City = ({
         <FlexContainer align="flex-start">
           <InlineTextWrapper pad="1rem 0rem">
             <P bold>Wind speed:&nbsp;</P>
-            <P bold color={theme.colors.textTurkoise}>{windSpeed}&nbsp;</P>
+            <P bold color={theme.colors.textPurple}>{windSpeed}&nbsp;</P>
             <P opaque>m/s</P>
           </InlineTextWrapper>
           <InlineTextWrapper pad="1rem 0rem">
             <P bold>Wind direction:&nbsp;</P>
-            <P bold color={theme.colors.textTurkoise}>{windDirection}&nbsp;</P>
+            <P bold color={theme.colors.textPurple}>{windDirection}&nbsp;</P>
             <P opaque>deg</P>
           </InlineTextWrapper>
         </FlexContainer>
@@ -202,7 +204,7 @@ const City = ({
 
 /* PropTypes. */
 
-City.propTypes = {
+CityCompactCard.propTypes = {
   id: PropTypes.number.isRequired,
   currentTime: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
@@ -234,13 +236,13 @@ City.propTypes = {
   }),
 }
 
-City.defaultProps = {
+CityCompactCard.defaultProps = {
   weatherArr: [{ id: null }],
   rain: { '1h': 'No data', '3h': 'No data' },
   snow: { '1h': 'No data', '3h': 'No data' },
 }
 
-export default City
+export default CityCompactCard
 
 /*
   Example response which data is to be presented by
