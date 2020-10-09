@@ -1,10 +1,10 @@
+import dayjs from 'dayjs'
 import React from 'react'
 
 const AxisBottom = ({ xScale, height }) => {
-  const [xStart, xEnd] = xScale.range()
-  const ticksX = xScale.ticks()
+  const ticks = xScale.ticks()
 
-  const axis = ticksX.map((d, i) => (
+  const axis = ticks.map((d, i) => (
     <g key={i}>
       <line
         y1={0}
@@ -13,12 +13,11 @@ const AxisBottom = ({ xScale, height }) => {
         x2={xScale(d)}
       />
       <text
-        style={{ textAnchor: "middle", fontSize: 12 }}
+        style={{ textAnchor: 'middle' }}
         x={xScale(d)}
-        dy=".71em"
-        y={height + 10}
+        y={height}
       >
-        {d}
+        {dayjs.unix(d).format('HH:mm')}
       </text>
     </g>
   ))

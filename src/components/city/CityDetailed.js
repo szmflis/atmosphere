@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { getCityByCoords } from '../../api/openWeather'
-import LineChart from '../charts/LinearChart'
+import LineChart from '../charts/LineChart'
 
 import CurrentWeatherPanel from './cityDetailedComponents/CurrentWeatherPanel'
 

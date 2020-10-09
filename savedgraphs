@@ -1,0 +1,119 @@
+import React, { useEffect, useState, useRef } from 'react'
+import * as d3 from 'd3'
+import dayjs from 'dayjs'
+import AxisLeft from './axis/AxisLeft'
+import AxisBottom from './axis/AxisBottom'
+
+const w = 600
+const h = 250
+const margin = {
+  top: 10, right: 40, bottom: 40, left: 40
+}
+const red = 'red'
+const blue = 'blue'
+
+const width = w - margin.right - margin.left
+const height = h - margin.bottom - margin.top
+
+const LinearChart = ({ data }) => {
+  const xScale = d3.scaleLinear()
+    .range([margin.left, width])
+
+  const yScale = d3.scaleLinear()
+    .range([height, margin.top])
+
+  const linearGenerator = d3.line()
+
+  // TODO learn about svg, g path line etc in general
+
+  /* Time */
+  const timeDomain = d3.extent(data, d => d.dt)
+  xScale.domain(timeDomain)
+  linearGenerator.x(d => xScale(d.dt))
+
+  /* Temps */
+  const maxTemp = d3.max(data, d => d.temp)
+  const minTemp = d3.min(data, d => d.temp)
+  yScale.domain([minTemp, maxTemp])
+  linearGenerator.y(d => yScale(d.temp))
+
+  const temps = linearGenerator(data)
+
+  return (
+    <svg width={w} height={h} style={{ border: '1px solid black' }}>
+      <g transform={`translate(${margin.left},${margin.top})`} style={{ border: '1px solid green'}}>
+        <path d={temps} fill='none' stroke={red} strokeWidth='2' />
+        <AxisLeft yScale={yScale} width={width} />
+        <AxisBottom xScale={xScale} height={height} />
+      </g>
+    </svg>)
+}
+
+export default LinearChart
+
+
+
+import React from 'react'
+
+const AxisLeft = ({ yScale, width }) => {
+  const [yStart, yEnd] = yScale.range()
+  const ticksY = yScale.ticks()
+  console.log(yScale.domain())
+
+  const axis = ticksY.map((d, i) => {
+    console.log(d, i)
+    console.log(yScale(d))
+
+    return (
+      <g key={i}>
+        <line
+          style={{ stroke: '#e4e5eb' }}
+          y1={yScale(d)}
+          y2={yScale(d)}
+          x1={0}
+          x2={width}
+        />
+        <text y={yScale(d)}>
+          {d}
+        </text>
+      </g>
+    )
+  })
+
+  return <>{axis}</>
+}
+
+export default AxisLeft
+
+import dayjs from 'dayjs'
+import React from 'react'
+
+const AxisBottom = ({ xScale, height }) => {
+  const [xStart, xEnd] = xScale.range()
+  const ticksX = xScale.ticks()
+
+  const axis = ticksX.map((d, i) => (
+    <g key={i}>
+      <line
+        y1={0}
+        y2={height}
+        x1={xScale(d)}
+        x2={xScale(d)}
+      />
+      <text
+        style={{ textAnchor: "middle", fontSize: 12 }}
+        x={xScale(d)}
+        dy=".71em"
+        y={height + 10}
+      >
+        {dayjs.unix(d).format('ddd HH:mm')}
+      </text>
+    </g>
+  ))
+
+  return <>{axis}</>
+}
+
+export default AxisBottom
+
+
