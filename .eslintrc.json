@@ -39,6 +39,7 @@
     "no-shadow":"off",
     "react/jsx-wrap-multilines":"off",
     "react/jsx-closing-tag-location":"off",
-    "react/jsx-boolean-value":"off"
+    "react/jsx-boolean-value":"off",
+    "linebreak-style":"off"
   }
 }

@@ -1,28 +1,45 @@
 import dayjs from 'dayjs'
 import React from 'react'
+import styled from 'styled-components'
+import { theme } from '../../../styles/theme'
 
-const AxisBottom = ({ xScale, height }) => {
+const Text = styled.text`
+  text-anchor: middle;
+  font-size: ${theme.fontSize.regular};
+  font-weight: ${theme.fontWeight.semibold};
+`
+
+const AxisBottom = ({ xScale, height, width, marginLeft }) => {
   const ticks = xScale.ticks()
 
   const axis = ticks.map((d, i) => (
     <g key={i}>
       <line
-        y1={0}
-        y2={height}
         x1={xScale(d)}
         x2={xScale(d)}
+        y1={height}
+        y2={height + 10}
+        stroke="black"
       />
-      <text
-        style={{ textAnchor: 'middle' }}
-        x={xScale(d)}
-        y={height}
-      >
+      <Text x={xScale(d)} y={height + 23}>
         {dayjs.unix(d).format('HH:mm')}
-      </text>
+      </Text>
+      <Text x={xScale(d)} y={height + 38}>
+        {dayjs.unix(d).format('ddd')}
+      </Text>
     </g>
   ))
 
-  return <>{axis}</>
+  return <>
+    {axis}
+    <line
+      x1={marginLeft}
+      x2={width}
+      y1={height}
+      y2={height}
+      stroke="black"
+    />
+  </>
 }
 
 export default AxisBottom

@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { getCityByCoords } from '../../api/openWeather'
 import LineChart from '../charts/LineChart'
+import { FlexContainer } from '../../elements/FlexContainer'
 
 import CurrentWeatherPanel from './cityDetailedComponents/CurrentWeatherPanel'
+
+const ChartContainer = styled.div`
+  width: 900px;
+`
 
 const CityDetailed = ({
   lat, lon, name, country, tempMin, tempAvg, tempMax
@@ -23,7 +29,7 @@ const CityDetailed = ({
   }, [lat, lon])
 
   return (
-    <div>
+    <FlexContainer row>
       {
         weatherData === null
           ? <p>waiting for data...</p>
@@ -48,12 +54,29 @@ const CityDetailed = ({
             tempMax={tempMax}
           />
       }
-      {
-        weatherData === null
-          ? <p>waiting for data...</p>
-          : <LineChart data={weatherData.hourly} />
-      }
-    </div>
+      <ChartContainer>
+        {
+          weatherData === null
+            ? <p>waiting for data...</p>
+            : <LineChart data={weatherData.hourly} weatherProperty="temp" />
+        }
+        {
+          weatherData === null
+            ? <p>waiting for data...</p>
+            : <LineChart data={weatherData.hourly} weatherProperty="pressure" />
+        }
+        {
+          weatherData === null
+            ? <p>waiting for data...</p>
+            : <LineChart data={weatherData.hourly} weatherProperty="humidity" />
+        }
+        {
+          weatherData === null
+            ? <p>waiting for data...</p>
+            : <LineChart data={weatherData.hourly} weatherProperty="wind_speed" />
+        }
+      </ChartContainer>
+    </FlexContainer>
   )
 }
 
