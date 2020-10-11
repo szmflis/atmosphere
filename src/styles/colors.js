@@ -37,4 +37,10 @@ export default {
   textRed: '#FF0000',
   textTurkoise: '#006978',
   textPurple: '#850091',
+
+  /* LINES */
+  lineBlue: 'rgba(0, 62, 222, 1)',
+  lineRed: 'rgba(255, 0, 0, 1)',
+  lineTurkoise: 'rgba(0, 105, 120, 1)',
+  linePurple: 'rgba(133, 0, 145, 1)',
 }

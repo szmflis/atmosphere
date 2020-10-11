@@ -101,7 +101,6 @@ const AutoInput = () => {
     if (target.value.length > 2) {
       const placeList = await getAutocomplete(target.value)
       setSuggestions(placeList)
-      console.log(placeList)
     }
     if (target.value.length <= 2) {
       setSuggestions([])

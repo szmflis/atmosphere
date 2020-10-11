@@ -14,7 +14,6 @@ export const getCityByName = async (cityName) => {
   try {
     const requestUrl = `${BASE_URL}/${CITY_BY_NAME}?q=${cityName}&units=metric&appid=${API_KEY}`
     const response = await axios.get(requestUrl)
-    console.log(response.data)
     return response.data
   } catch (error) {
     if (error.response) {
@@ -42,9 +41,7 @@ export const getCities = async () => {
 export const getCityByCoords = async (lat, lon) => {
   try {
     const requestUrl = `${BASE_URL}/${CITY_BY_COORDS}?lat=${lat}&lon=${lon}&exclude=minutely&units=metric&appid=${API_KEY}`
-    console.log(requestUrl)
     const response = await axios.get(requestUrl)
-    console.log(response.data)
     return response.data
   } catch (error) {
     if (error.response) {
