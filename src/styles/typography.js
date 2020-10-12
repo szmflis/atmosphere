@@ -30,6 +30,6 @@ export default {
     hugeExtra: '4.8rem'
   },
   fonts: {
-    montserrat: 'Montserrat, sans-serif'
+    montserrat: 'Montserrat, Helvetica'
   }
 }

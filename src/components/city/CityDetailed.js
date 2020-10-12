@@ -63,6 +63,8 @@ const CityDetailed = ({
       <H4 alignCenter marBot="4rem" bold>Latitude: {lat} Longitude: {lon}</H4>
       {
         weatherData === null
+        // display placeholder animations rather than p tag
+        // probably make a whole component for it
           ? <p>waiting for data...</p>
           : <PanelsContainer>
             <Column>

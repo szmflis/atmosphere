@@ -1,7 +1,6 @@
 import React from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import PropTypes from 'prop-types'
-import { montVariants } from '../styles/typography'
 import { theme } from '../styles/theme'
 
 /*
@@ -12,39 +11,15 @@ import { theme } from '../styles/theme'
   and other things one would want.
 */
 
+/*
+  fontface's are specified in external css file at /assets/global-static-styles.css
+  and loaded into index.js and not specified here becouse
+  there is a problem with loading them using createGlobalStyle
+  https://github.com/react-boilerplate/react-boilerplate/issues/2552
+  https://github.com/styled-components/styled-components/issues/1593
+*/
+
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Montserrat';
-    src: url(${montVariants.mont300}) format('woff2');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: 'Montserrat';
-    src: url(${montVariants.mont400}) format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: 'Montserrat';
-    src: url(${montVariants.mont500}) format('woff2');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: 'Montserrat';
-    src: url(${montVariants.mont600}) format('woff2');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-  }
-
   html {
     font-size: ${theme.fontSizeBase};
   }

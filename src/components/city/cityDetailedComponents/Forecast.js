@@ -100,15 +100,11 @@ const Forecast = ({ data, title }) => {
   }
 
   const getTimeSpan = () => {
-    if (data !== null) {
-      const minDate = data[0].dt
-      const maxDate = data[data.length - 1].dt
-      return <H5 alignCenter bold>
-        {`From ${dayjs.unix(minDate).format('ddd DD/MM HH:mm')} to ${dayjs.unix(maxDate).format('ddd DD/MM HH:mm')}`}
-      </H5>
-    }
-
-    return null
+    const minDate = data[0].dt
+    const maxDate = data[data.length - 1].dt
+    return <H5 alignCenter bold>
+      {`From ${dayjs.unix(minDate).format('ddd DD/MM HH:mm')} to ${dayjs.unix(maxDate).format('ddd DD/MM HH:mm')}`}
+    </H5>
   }
 
   return (
@@ -118,11 +114,7 @@ const Forecast = ({ data, title }) => {
     <Wrapper>
       <Header>
         <H3 alignCenter bold>{title}</H3>
-        {
-          data === null
-            ? <div></div>
-            : getTimeSpan()
-        }
+        {getTimeSpan()}
       </Header>
       <ButtonsContainer row>
         <TypeButton
@@ -197,17 +189,13 @@ const Forecast = ({ data, title }) => {
             : null
         }
       </ButtonsContainer>
-      {
-          data === null
-            ? <p>waiting for data...</p>
-            : <LinearChart
-              data={data}
-              type={forecastType.type}
-              title={forecastType.title}
-              unit={forecastType.unit}
-              lineColor={forecastType.color}
-            />
-        }
+      <LinearChart
+        data={data}
+        type={forecastType.type}
+        title={forecastType.title}
+        unit={forecastType.unit}
+        lineColor={forecastType.color}
+      />
     </Wrapper>
   )
 }
