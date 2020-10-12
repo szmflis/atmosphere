@@ -8,6 +8,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { theme } from '../styles/theme'
 import { getAutocomplete } from '../api/autocomplete'
+import { P } from '../elements/P'
 
 const StyledHereInput = styled.input`
   background-color: ${theme.colors.greyLighter};
@@ -35,7 +36,7 @@ const StyledHereInput = styled.input`
 const SuggestionsDropdown = styled.div`
   visibility: ${({ suggestions }) => suggestions.length === 0 ? 'hidden' : 'visible'};
   
-  transform: translateY(23rem);
+  transform: translateY(16rem);
   position: absolute;
   top: 0;
   
@@ -51,11 +52,11 @@ const SuggestionsDropdown = styled.div`
   }
 `
 
-const Suggestion = styled.p`
-  color: ${theme.colors.primaryDarkExtra};
-  font-size: ${theme.fontSize.regular};
-  font-weight: ${theme.fontWeight.semibold};
-  
+const Suggestion = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   width: 100%;
   padding: 1rem;
   margin: 0;
@@ -111,6 +112,7 @@ const AutoInput = () => {
     // downstroke
     if (keyCode === 40 && selectedSuggestion !== suggestions.length - 1) {
       setSelectedSuggestion(selectedSuggestion + 1)
+      console.log(suggestions)
       /*
         query is also set with selectedSuggestion +- 1 and not
         selectedSuggestion because states are asynchronous
@@ -166,7 +168,8 @@ const AutoInput = () => {
             onMouseOver={() => handleMouseOver(index)}
             onClick={() => handleSuggestionClick(suggestion.name)}
           >
-            {suggestion.name}
+            <P bold>{suggestion.name}</P>
+            <P>{suggestion.additionalInfo}</P>
           </Suggestion>)
         }
       </SuggestionsDropdown>

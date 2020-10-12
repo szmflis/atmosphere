@@ -64,7 +64,6 @@ const Navbar = () => {
       </NavElementWrapper>
       <NavElementWrapper justify="flex-end">
         <NavElement to="city">City</NavElement>
-        <NavElement to="/cities">Cities</NavElement>
       </NavElementWrapper>
     </Wrapper>
   )

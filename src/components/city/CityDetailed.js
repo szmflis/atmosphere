@@ -3,9 +3,10 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { getCityByCoords } from '../../api/openWeather'
 import { FlexContainer } from '../../elements/FlexContainer'
-import ShorttermForecast from './cityDetailedComponents/ShorttermForecast'
+import Forecast from './cityDetailedComponents/Forecast'
 import CurrentWeatherPanel from './cityDetailedComponents/CurrentWeatherPanel'
-import { H3, H5 } from '../../elements/H'
+import { H2, H4 } from '../../elements/H'
+import { theme } from '../../styles/theme'
 
 const PanelsContainer = styled(FlexContainer)`
   flex-direction: row;
@@ -19,6 +20,13 @@ const PanelsContainer = styled(FlexContainer)`
 
 const Column = styled(FlexContainer)`
   align-items: flex-start;
+`
+
+const Header = styled(FlexContainer)`
+  width: 100vw;
+  background-color: ${theme.colors.greyLighter};
+  padding: 2rem;
+  margin-bottom: 2rem;
 `
 
 const CityDetailed = ({
@@ -38,11 +46,21 @@ const CityDetailed = ({
     fetchData()
   }, [lat, lon])
 
+  const getDailyForecastData = ({ daily }) => {
+    const formattedData = daily.map(day => {
+      return {
+        ...day,
+        temp: day.temp.day,
+      }
+    })
+
+    return formattedData
+  }
+
   return (
     <>
-
-      <H3 alignCenter>{name}, {country}</H3>
-      <H5 alignCenter marBot="3rem">Latitude: {lat} Longitude: {lon}</H5>
+      <H2 alignCenter bold>{name}, {country}</H2>
+      <H4 alignCenter marBot="4rem" bold>Latitude: {lat} Longitude: {lon}</H4>
       {
         weatherData === null
           ? <p>waiting for data...</p>
@@ -70,7 +88,8 @@ const CityDetailed = ({
               />
             </Column>
             <Column>
-              <ShorttermForecast hourlyData={weatherData.hourly} />
+              <Forecast data={weatherData.hourly} title="Short term forecast" />
+              <Forecast data={getDailyForecastData(weatherData)} title="Long term forecast" />
             </Column>
           </PanelsContainer>
       }

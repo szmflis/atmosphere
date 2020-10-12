@@ -7,16 +7,23 @@
   handled via CityDetailed.js
 */
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { useParams, useHistory } from 'react-router-dom'
 import { FlexContainer } from '../../elements/FlexContainer'
 import { Button } from '../../elements/Button'
 import { getCityByName } from '../../api/openWeather'
 import AutoInput from '../../components/AutoInput'
 import CityDetailed from '../../components/city/CityDetailed'
+import { theme } from '../../styles/theme'
 
 const Wrapper = styled(FlexContainer)`
-  width: 100%;
+  width: 100vw;
+  min-height: 100vh;
+
+  justify-content: flex-start;
+
+  background-color: ${theme.colors.primaryLighter};
 `
 
 /*
@@ -29,16 +36,32 @@ const Form = styled.form`
   align-items: center;
   justify-content: center;
 
-  padding: 16rem;
+  padding: 8rem;
   width: 100%;
   position: relative;
 `
 
 const Citypage = () => {
   const [results, setResults] = useState(null)
+  const { cityname } = useParams()
+  const history = useHistory()
+
+  useEffect(() => {
+    console.log(cityname)
+    const fetchData = async () => {
+      const data = await getCityByName(cityname)
+      if (!data.status && !data.error) {
+        setResults(data)
+      } else {
+        // TODO redux notification as exception handling
+      }
+    }
+    if (cityname) fetchData()
+  }, [])
 
   const getWeather = async (event) => {
     event.preventDefault()
+    history.push(`/city/${event.target.cityInput.value}`)
     const data = await getCityByName(event.target.cityInput.value)
     if (!data.status && !data.error) {
       setResults(data)

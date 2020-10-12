@@ -18,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
     src: url(${montVariants.mont300}) format('woff2');
     font-weight: 300;
     font-style: normal;
+    font-display: swap;
   }
 
   @font-face {
@@ -25,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
     src: url(${montVariants.mont400}) format('woff2');
     font-weight: 400;
     font-style: normal;
+    font-display: swap;
   }
 
   @font-face {
@@ -32,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
     src: url(${montVariants.mont500}) format('woff2');
     font-weight: 500;
     font-style: normal;
+    font-display: swap;
   }
 
   @font-face {
@@ -39,6 +42,7 @@ const GlobalStyle = createGlobalStyle`
     src: url(${montVariants.mont600}) format('woff2');
     font-weight: 600;
     font-style: normal;
+    font-display: swap;
   }
 
   html {

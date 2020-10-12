@@ -5,9 +5,10 @@ import { FlexContainer } from '../../../elements/FlexContainer'
 import CityCompactCard from '../../../components/city/CityCompactCard'
 
 const Wrapper = styled(FlexContainer)`
-  width: 100%;
+  width: 100vw;
   flex-direction: row;
   flex-wrap: wrap;
+  min-height: 100vh;
 `
 
 const CitiesList = () => {

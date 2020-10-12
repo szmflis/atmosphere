@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
@@ -12,12 +12,26 @@ const Wrapper = styled.div`
   width: 50vw;
   max-width: 750px;
 
+  background-color: ${theme.colors.greyLightest};
+
   margin: 2rem;
+  border-radius: 8px;
 
   @media ( max-width: 900px ) {
     width: 90vw;
     max-width: 850px;
   }
+
+  box-shadow: ${theme.effects.boxShadowPrimary};
+`
+
+const Header = styled(FlexContainer)`
+  width: 100%;
+  background-color: ${theme.colors.greyLight};
+  padding: 2rem;
+
+  
+  border-radius: 8px 8px 0px 0px;
 `
 
 const TypeButton = styled(Button)`
@@ -33,7 +47,7 @@ const ButtonsContainer = styled(FlexContainer)`
   margin-bottom: 2rem;
 `
 
-const ShorttermForecast = ({ hourlyData }) => {
+const Forecast = ({ data, title }) => {
   const [selectedButton, setSelectedButton] = useState(0)
   const [forecastType, setForecastType] = useState({
     type: 'temp',
@@ -70,29 +84,46 @@ const ShorttermForecast = ({ hourlyData }) => {
           type: 'wind_speed', title: 'Wind speed', unit: 'm/s', color: theme.colors.linePurple
         })
         break
+      case 5:
+        setForecastType({
+          type: 'uvi', title: 'UV Index', unit: '', color: theme.colors.linePurple
+        })
+        break
+      case 6:
+        setForecastType({
+          type: 'rain', title: 'Rain (mm)', unit: 'mm', color: theme.colors.lineBlue
+        })
+        break
       default:
         //
     }
   }
 
   const getTimeSpan = () => {
-    if (hourlyData !== null) {
-      const minDate = hourlyData[0].dt
-      const maxDate = hourlyData[hourlyData.length - 1].dt
-      return <H5 alignCenter marBot="2rem">
-        {`From ${dayjs.unix(minDate).format('ddd HH:mm')} to ${dayjs.unix(maxDate).format('ddd HH:mm')}`}
+    if (data !== null) {
+      const minDate = data[0].dt
+      const maxDate = data[data.length - 1].dt
+      return <H5 alignCenter bold>
+        {`From ${dayjs.unix(minDate).format('ddd DD/MM HH:mm')} to ${dayjs.unix(maxDate).format('ddd DD/MM HH:mm')}`}
       </H5>
     }
+
+    return null
   }
 
   return (
+    /*
+      TODO render buttons smarter.
+    */
     <Wrapper>
-      <H3 alignCenter>Short term weather forcast</H3>
-      {
-        hourlyData === null
-          ? <div></div>
-          : getTimeSpan()
-      }
+      <Header>
+        <H3 alignCenter bold>{title}</H3>
+        {
+          data === null
+            ? <div></div>
+            : getTimeSpan()
+        }
+      </Header>
       <ButtonsContainer row>
         <TypeButton
           variant="primary"
@@ -139,12 +170,38 @@ const ShorttermForecast = ({ hourlyData }) => {
         >
           Wind speed
         </TypeButton>
+        {
+          data[0].uvi
+            ? <TypeButton
+              variant="primary"
+              type="button"
+              onClick={() => handleButtonClick(5)}
+              id={5}
+              selectedButton={selectedButton}
+            >
+              UV Index
+            </TypeButton>
+            : null
+        }
+        {
+          data[0].rain
+            ? <TypeButton
+              variant="primary"
+              type="button"
+              onClick={() => handleButtonClick(6)}
+              id={6}
+              selectedButton={selectedButton}
+            >
+              Rain (mm)
+            </TypeButton>
+            : null
+        }
       </ButtonsContainer>
       {
-          hourlyData === null
+          data === null
             ? <p>waiting for data...</p>
             : <LinearChart
-              data={hourlyData}
+              data={data}
               type={forecastType.type}
               title={forecastType.title}
               unit={forecastType.unit}
@@ -155,19 +212,19 @@ const ShorttermForecast = ({ hourlyData }) => {
   )
 }
 
-ShorttermForecast.propTypes = {
-  hourlyData: PropTypes.arrayOf(
+Forecast.propTypes = {
+  data: PropTypes.arrayOf(
     PropTypes.shape({
       dt: PropTypes.number,
-      dew_point: PropTypes.number,
-      feels_like: PropTypes.number,
       pressure: PropTypes.number,
       pop: PropTypes.number,
       temp: PropTypes.number,
-      wind_deg: PropTypes.number,
       wind_speed: PropTypes.number,
+      uvi: PropTypes.number,
+      rain: PropTypes.oneOfType([PropTypes.number, PropTypes.object])
     })
-  ).isRequired
+  ).isRequired,
+  title: PropTypes.string.isRequired,
 }
 
-export default ShorttermForecast
+export default Forecast

@@ -20,6 +20,8 @@ const StyledWrapper = styled(FlexContainer)`
     width: 100%;
     margin: 1rem;
   }
+
+  box-shadow: ${theme.effects.boxShadowPrimary};
 `
 
 const InlineTextWrapper = styled.div`

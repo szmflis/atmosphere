@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom'
 import Layout from './layout/Layout'
 import Home from './pages/homepage/Home'
 import Navbar from './components/Navbar'
-import Cities from './pages/Cities'
 import Citypage from './pages/citypage/Citypage'
 
 const App = () => {
@@ -11,15 +10,9 @@ const App = () => {
     <Layout>
       <Navbar />
       <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/cities">
-          <Cities />
-        </Route>
-        <Route exact path="/city">
-          <Citypage />
-        </Route>
+        <Route exact path="/" component={Home} />
+        <Route path="/city/:cityname" component={Citypage} />
+        <Route exact path="/city" component={Citypage} />
       </Switch>
     </Layout>
   )

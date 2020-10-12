@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
+import { Link } from 'react-router-dom'
 import { FlexContainer } from '../../elements/FlexContainer'
 import { theme } from '../../styles/theme'
 import { P } from '../../elements/P'
@@ -194,7 +195,7 @@ const CityCompactCard = ({
         <P opaque marBot="2rem" alignCenter>
           Courtesy of openweathermap.org API
         </P>
-        <Button variant="primary" type="button">
+        <Button variant="primary" type="button" as={Link} to={`/city/${name}`}>
           More
         </Button>
       </Footer>

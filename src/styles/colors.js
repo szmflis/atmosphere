@@ -1,4 +1,5 @@
 export default {
+  /* BASIC */
   black: '#000',
   white: '#fff',
   disabled: '#dcdcdc',
@@ -32,7 +33,6 @@ export default {
   bckgYellowLight: '#FBEECA',
 
   /* TEXT TYPE */
-
   textBlue: '#003EDE',
   textRed: '#FF0000',
   textTurkoise: '#006978',

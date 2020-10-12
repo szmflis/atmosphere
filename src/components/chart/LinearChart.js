@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Line } from 'react-chartjs-2'
 import dayjs from 'dayjs'
-import { opacify, parseToRgb } from 'polished'
+import { opacify } from 'polished'
 
 const ChartContainer = styled.div`
   max-height: 350px;
   width: 100%;
+
+  padding: 2rem;
 `
 
 const LinearChart = ({
@@ -60,6 +63,24 @@ const LinearChart = ({
       />
     </ChartContainer>
   )
+}
+
+LinearChart.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      dt: PropTypes.number,
+      pressure: PropTypes.number,
+      pop: PropTypes.number,
+      temp: PropTypes.number,
+      wind_speed: PropTypes.number,
+      uvi: PropTypes.number,
+      rain: PropTypes.oneOfType([PropTypes.number, PropTypes.object])
+    })
+  ).isRequired,
+  type: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  unit: PropTypes.string.isRequired,
+  lineColor: PropTypes.string.isRequired,
 }
 
 export default LinearChart

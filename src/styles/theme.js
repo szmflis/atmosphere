@@ -9,5 +9,5 @@ export const theme = {
   ...typography,
   ...layout,
   buttons,
-  effects,
+  effects
 }

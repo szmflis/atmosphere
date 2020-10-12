@@ -11,7 +11,7 @@ const StyledWrapper = styled(FlexContainer)`
   background-image: url(${plane});
   background-size: cover;
   background-position: center;
-  width: 100%;
+  width: 100vw;
   height: 800px;
   align-items: flex-start;
 `
@@ -42,7 +42,7 @@ const Hero = () => (
         I will put a illustration better fit to words like atmosphere,
         nature and such when i get the time to fiddle with Adobe Illustrator.
       </P>
-      <Button as={Link} to="/cities" variant="primary" mar="4rem 0rem">
+      <Button as={Link} to="/city" variant="primary" mar="4rem 0rem">
         Check Your City
       </Button>
     </TextContainer>
