@@ -22,13 +22,6 @@ const Column = styled(FlexContainer)`
   align-items: flex-start;
 `
 
-const Header = styled(FlexContainer)`
-  width: 100vw;
-  background-color: ${theme.colors.greyLighter};
-  padding: 2rem;
-  margin-bottom: 2rem;
-`
-
 const CityDetailed = ({
   lat, lon, name, country, tempMin, tempAvg, tempMax
 }) => {

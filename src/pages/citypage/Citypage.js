@@ -57,7 +57,7 @@ const Citypage = () => {
       }
     }
     if (cityname) fetchData()
-  }, [])
+  }, [cityname])
 
   const getWeather = async (event) => {
     event.preventDefault()

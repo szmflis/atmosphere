@@ -63,7 +63,7 @@ const Navbar = () => {
       <NavElementWrapper>
       </NavElementWrapper>
       <NavElementWrapper justify="flex-end">
-        <NavElement to="city">City</NavElement>
+        <NavElement to="/city">City</NavElement>
       </NavElementWrapper>
     </Wrapper>
   )
