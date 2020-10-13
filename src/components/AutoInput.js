@@ -36,7 +36,7 @@ const StyledHereInput = styled.input`
 const SuggestionsDropdown = styled.div`
   visibility: ${({ suggestions }) => suggestions.length === 0 ? 'hidden' : 'visible'};
   
-  transform: translateY(16rem);
+  transform: translateY(20rem);
   position: absolute;
   top: 0;
   

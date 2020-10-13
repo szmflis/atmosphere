@@ -1,12 +1,3 @@
-/*
-  City page takes input data in form of city name and returns
-  CityDetailed.js component passing it it's id.
-  Id is taken from basic request to openweathermap.org
-
-  Handling of api calls for data for that particular city is then
-  handled via CityDetailed.js
-*/
-
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useParams, useHistory } from 'react-router-dom'
@@ -16,6 +7,7 @@ import { getCityByName } from '../../api/openWeather'
 import AutoInput from '../../components/AutoInput'
 import CityDetailed from '../../components/city/CityDetailed'
 import { theme } from '../../styles/theme'
+import { H3 } from '../../elements/H'
 
 const Wrapper = styled(FlexContainer)`
   width: 100vw;
@@ -25,10 +17,6 @@ const Wrapper = styled(FlexContainer)`
 
   background-color: ${theme.colors.primaryLighter};
 `
-
-/*
-  TODO DELETE AFTER CITY.JS IS COMPLETE
-*/
 
 const Form = styled.form`
   display: flex;
@@ -41,13 +29,21 @@ const Form = styled.form`
   position: relative;
 `
 
-const Citypage = () => {
+/*
+  City component handles getting input/url parameters,
+  calling most basic api from openweathermap to get
+  city parameters, id and such, then passing that to
+  CityDetailed which handles rest of the requests
+  to more detailed apis.
+*/
+
+const City = () => {
   const [results, setResults] = useState(null)
   const { cityname } = useParams()
   const history = useHistory()
 
+  /* Handles getting data if search parameters specified in url */
   useEffect(() => {
-    console.log(cityname)
     const fetchData = async () => {
       const data = await getCityByName(cityname)
       if (!data.status && !data.error) {
@@ -59,6 +55,7 @@ const Citypage = () => {
     if (cityname) fetchData()
   }, [cityname])
 
+  /* Handles getting data if search parameters submitted via form */
   const getWeather = async (event) => {
     event.preventDefault()
     history.push(`/city/${event.target.cityInput.value}`)
@@ -73,6 +70,7 @@ const Citypage = () => {
   return (
     <Wrapper>
       <Form onSubmit={getWeather} autoComplete="off">
+        <H3 alignCenter marBot="1rem">Check any city weather&air quality</H3>
         <AutoInput />
         <Button type="submit" variant="primary">
           Get Weather
@@ -95,4 +93,4 @@ const Citypage = () => {
   )
 }
 
-export default Citypage
+export default City

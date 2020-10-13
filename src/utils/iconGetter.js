@@ -1,6 +1,6 @@
-import { OPEN_WEATHER_URLS } from './urls'
+import { OPEN_WEATHER } from './urls'
 
-const { ICON_URL } = OPEN_WEATHER_URLS
+const { ICON_URL } = OPEN_WEATHER
 
 export const iconGetter = (iconName) => {
   const requestUrl = `${ICON_URL}/${iconName}@2x.png`

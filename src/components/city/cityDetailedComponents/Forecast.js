@@ -91,7 +91,7 @@ const Forecast = ({ data, title }) => {
         break
       case 6:
         setForecastType({
-          type: 'rain', title: 'Rain (mm)', unit: 'mm', color: theme.colors.lineBlue
+          type: 'rain', title: 'Rain', unit: 'mm', color: theme.colors.lineBlue
         })
         break
       default:

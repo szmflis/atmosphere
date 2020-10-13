@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { OPEN_WEATHER_URLS } from '../utils/urls'
+import { OPEN_WEATHER } from '../utils/urls'
 
 /* Deconstructing to reduce the visual length of request strings */
 const {
@@ -8,7 +8,7 @@ const {
   CITIES_BY_IDS,
   CITY_BY_COORDS,
   API_KEY
-} = OPEN_WEATHER_URLS
+} = OPEN_WEATHER
 
 export const getCityByName = async (cityName) => {
   try {
@@ -52,11 +52,3 @@ export const getCityByCoords = async (lat, lon) => {
     return { error: error.message }
   }
 }
-
-/*
-  https://api.openweathermap.org/data/2.5/
-    onecall
-    ?lat={lat}&lon={lon}
-    &exclude={part}
-    &appid={API key}
-*/
