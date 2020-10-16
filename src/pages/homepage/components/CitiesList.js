@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { getCities } from '../../../api/openWeather'
 import { FlexContainer } from '../../../elements/FlexContainer'
-import CityCompactCard from '../../../components/city/CityCompactCard'
+import CurrentWeatherPanel from '../../../components/city/cityDetailedComponents/CurrentWeatherPanel'
 
 const Wrapper = styled(FlexContainer)`
   width: 100vw;
@@ -28,30 +28,31 @@ const CitiesList = () => {
 
   return (
     <Wrapper>
-      {
+      {/* TODO new component, compact cardish design vertical */}
+      {/* {
         cities === null
           ? <div></div>
-          : cities.map(city => <CityCompactCard
+          : cities.map(city => <CurrentWeatherPanel
             key={city.id}
             id={city.id}
             currentTime={city.dt}
             name={city.name}
             lat={city.coord.lat}
             lon={city.coord.lon}
-            temp={city.main.temp}
+            tempAvg={city.main.temp}
             tempMax={city.main.temp_max}
             tempMin={city.main.temp_min}
             pressure={city.main.pressure}
             humidity={city.main.humidity}
             windSpeed={city.wind.speed}
-            windDirection={city.wind.deg}
+            windDir={city.wind.deg}
             weatherArr={city.weather}
             country={city.sys.country}
             sunrise={city.sys.sunrise}
             sunset={city.sys.sunset}
             rain={city.rain}
           />)
-      }
+      } */}
     </Wrapper>
   )
 }

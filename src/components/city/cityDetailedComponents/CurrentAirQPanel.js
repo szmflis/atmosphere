@@ -8,6 +8,7 @@ import {
 import { H1, H4, H5 } from '../../../elements/H'
 import { P } from '../../../elements/P'
 import { FlexContainer } from '../../../elements/FlexContainer'
+import { InlineTextWrapper } from '../../../elements/InlineTextWrapper'
 import { theme } from '../../../styles/theme'
 
 const Wrapper = styled(FlexContainer)`
@@ -44,6 +45,10 @@ const HeaderInfo = styled(FlexContainer)`
   max-width: 60%;
 `
 
+const PollutantsContainer = styled(PaddedSection)`
+  background-color: ${theme.colors.greyLightest};
+`
+
 const CurrentAirQPanel = ({
   airQualityIndex,
   dominentPollutant,
@@ -77,6 +82,25 @@ const CurrentAirQPanel = ({
           </P>
         </HeaderInfo>
       </Header>
+      <PollutantsContainer align="flex-start">
+        {
+          ['no2', 'pm10', 'pm25', 'so2', 'o3', 'co'].map(pollutantName => {
+            if (pollutantsObject[pollutantName]) {
+              return (
+                <InlineTextWrapper key={pollutantName} row>
+                  <InlineTextWrapper pad="1rem 0rem">
+                    <P bold>{pollutantName}:&nbsp;</P>
+                    <P bold color={theme.colors.textBlue}>
+                      {pollutantsObject[pollutantName].v}&nbsp;
+                    </P>
+                    <P opaque>μg/m3</P>
+                  </InlineTextWrapper>
+                </InlineTextWrapper>
+              )
+            }
+          })
+        }
+      </PollutantsContainer>
     </Wrapper>
   )
 }
