@@ -21,6 +21,7 @@ const PanelsContainer = styled(FlexContainer)`
 
 const Column = styled(FlexContainer)`
   align-items: flex-start;
+  justify-content: center;
 `
 
 const CityDetailed = ({
@@ -57,7 +58,7 @@ const CityDetailed = ({
     fetchData()
   }, [lat, lon])
 
-  const formatDailyForecastData = ( daily ) => {
+  const formatDailyForecastData = (daily) => {
     const formattedData = daily.map(day => {
       return {
         ...day,
@@ -68,7 +69,7 @@ const CityDetailed = ({
     return formattedData
   }
 
-  const formatHourlyForecastData = ( hourly ) => {
+  const formatHourlyForecastData = (hourly) => {
     const formattedData = hourly.map(hour => {
       if (hour.rain) {
         return {

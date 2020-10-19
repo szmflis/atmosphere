@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { getCities } from '../../../api/openWeather'
 import { FlexContainer } from '../../../elements/FlexContainer'
-import CurrentWeatherPanel from '../../../components/city/cityDetailedComponents/CurrentWeatherPanel'
 
 const Wrapper = styled(FlexContainer)`
   width: 100vw;

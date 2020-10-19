@@ -5,12 +5,12 @@ import { InlineTextWrapper } from '../../../elements/InlineTextWrapper'
 import { theme } from '../../../styles/theme'
 
 const InfoDisplay = ({
-  name, value, unit, pad
+  name, value, unit, pad, color
 }) => {
   return (
     <InlineTextWrapper pad={pad}>
       <P bold>{name}:&nbsp;</P>
-      <P bold color={theme.colors.textBlue}>{value}&nbsp;</P>
+      <P bold color={color}>{value}&nbsp;</P>
       <P opaque>{unit}</P>
     </InlineTextWrapper>
   )
@@ -20,12 +20,14 @@ InfoDisplay.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   unit: PropTypes.string,
-  pad: PropTypes.string
+  pad: PropTypes.string,
+  color: PropTypes.string,
 }
 
 InfoDisplay.defaultProps = {
   pad: '0',
-  unit: null
+  unit: null,
+  color: theme.colors.textBlue
 }
 
 export default InfoDisplay

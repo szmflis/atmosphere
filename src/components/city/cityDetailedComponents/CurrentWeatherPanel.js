@@ -9,19 +9,15 @@ import { P } from '../../../elements/P'
 import { Icon } from '../../../elements/Icon'
 import { theme } from '../../../styles/theme'
 import { iconGetter } from '../../../utils/iconGetter'
-import moon from '../../../assets/moon.svg'
-import sun from '../../../assets/sun.svg'
+import { IconSundown, IconSunrise } from '../../../assets/icons'
 import arrow from '../../../assets/arrow.png'
 import InfoDisplay from './InfoDisplay'
 
-// TODO: split into smaller components
-// keep design
-
 const StyledWrapper = styled(FlexContainer)`
-  width: 400px;
+  width: 420px;
   margin: 2rem;
 
-  @media ( max-width: 420px ) {
+  @media ( max-width: 440px ) {
     width: 100%;
     margin: 1rem;
   }
@@ -36,38 +32,26 @@ const InfoSection = styled(FlexContainer)`
 `
 
 const Header = styled(InfoSection)`
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: ${theme.colors.greyBright};
-
+  background-color: ${theme.colors.greyLight};
   border-radius: 8px 8px 0px 0px;
-  padding: 2rem;
+  padding: 0rem 2rem;
 `
 
 const Temperatures = styled(InfoSection)`
-  flex-direction: row;
-  justify-content: space-around;
   background-color: ${theme.colors.greyLighter};
 `
 
 const OtherInfo = styled(InfoSection)`
   background-color: ${theme.colors.greyLightest};
-  align-items: flex-start;
 `
 
 const SunriseSundown = styled(InfoSection)`
-  flex-direction: row;
-  justify-content: space-around;
   background-color: ${theme.colors.greyLightest};
-  padding: 1rem 2rem;
 `
 
 const WindInformation = styled(FlexContainer)`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
   background-color: ${theme.colors.greyLightest};
-  justify-content: space-between;
+  width: 100%;
 `
 
 const Arrow = styled(Icon)`
@@ -75,7 +59,8 @@ const Arrow = styled(Icon)`
 `
 
 const Footer = styled(InfoSection)`
-  background-color: ${theme.colors.greyLighter};
+  background-color: ${theme.colors.greyLightest};
+  padding: 1rem;
   border-radius: 0px 0px 8px 8px;
 `
 
@@ -89,7 +74,7 @@ const CurrentWeatherPanel = ({
   return (
     <StyledWrapper>
 
-      <Header>
+      <Header row justify="space-between">
         <div>
           <H4>Current weather</H4>
           <P bold color={theme.colors.textBlue}>{weatherArr[0].description}&nbsp;</P>
@@ -97,7 +82,7 @@ const CurrentWeatherPanel = ({
         <Icon src={iconGetter(weatherArr[0].icon)} size="75px" />
       </Header>
 
-      <Temperatures>
+      <Temperatures row justify="space-around">
         <FlexContainer>
           <P size={theme.fontSize.small}>Lowest possible</P>
           <InlineTextWrapper>
@@ -109,7 +94,7 @@ const CurrentWeatherPanel = ({
         <FlexContainer>
           <P bold>Average</P>
           <InlineTextWrapper>
-            <P bold color={theme.colors.textRed} size={theme.fontSize.huge}>{tempAvg}</P>
+            <P bold size={theme.fontSize.huge}>{tempAvg}</P>
             <P bold size={theme.fontSize.huge}>°C</P>
           </InlineTextWrapper>
         </FlexContainer>
@@ -123,12 +108,12 @@ const CurrentWeatherPanel = ({
         </FlexContainer>
       </Temperatures>
 
-      <OtherInfo>
+      <OtherInfo align="flex-start">
         <InfoDisplay name="Pressure" value={pressure} unit="hPa" pad="1rem 0rem" />
         <InfoDisplay name="Humidity" value={humidity} unit="%" pad="1rem 0rem" />
         <InfoDisplay name="Dew point" value={dewpoint} unit="°C" pad="1rem 0rem" />
         <InfoDisplay name="UV index" value={uvIndex} pad="1rem 0rem" />
-        <WindInformation>
+        <WindInformation row justify="space-between">
           <FlexContainer align="flex-start">
             <InfoDisplay name="Wind speed" value={windSpeed} unit="m/s" pad="1rem 0rem" />
             <InfoDisplay name="Wind direction" value={windDir} unit="deg" pad="1rem 0rem" />
@@ -141,14 +126,26 @@ const CurrentWeatherPanel = ({
         </WindInformation>
       </OtherInfo>
 
-      <SunriseSundown>
+      <SunriseSundown row justify="space-around">
         <FlexContainer>
-          <Icon src={sun} size="75px" pad="1rem" />
-          <P>sunrise at {dayjs.unix(sunrise).format('HH:mm')}</P>
+          <IconSunrise />
+          <InfoDisplay
+            name="Sunrise"
+            value={dayjs.unix(sunrise).format('HH:mm')}
+            unit="am"
+            pad="1rem"
+            color={theme.colors.textRed}
+          />
         </FlexContainer>
         <FlexContainer>
-          <Icon src={moon} size="75px" pad="1rem" />
-          <P>sunset at {dayjs.unix(sunset).format('HH:mm')}</P>
+          <IconSundown />
+          <InfoDisplay
+            name="Sundown"
+            value={dayjs.unix(sunset).format('HH:mm')}
+            unit="pm"
+            pad="1rem"
+            color={theme.colors.textRed}
+          />
         </FlexContainer>
       </SunriseSundown>
 
