@@ -87,7 +87,7 @@ const CurrentWeatherPanel = ({
           <P size={theme.fontSize.small}>Lowest possible</P>
           <InlineTextWrapper>
             <P color={theme.colors.textBlue} size={theme.fontSize.big}>{tempMin}</P>
-            <P size={theme.fontSize.big}>°C</P>
+            <P size={theme.fontSize.big} opaque>°C</P>
           </InlineTextWrapper>
         </FlexContainer>
 
@@ -95,7 +95,7 @@ const CurrentWeatherPanel = ({
           <P bold>Average</P>
           <InlineTextWrapper>
             <P bold size={theme.fontSize.huge}>{tempAvg}</P>
-            <P bold size={theme.fontSize.huge}>°C</P>
+            <P bold size={theme.fontSize.huge} opaque>°C</P>
           </InlineTextWrapper>
         </FlexContainer>
 
@@ -103,7 +103,7 @@ const CurrentWeatherPanel = ({
           <P size={theme.fontSize.small}>Highest possible</P>
           <InlineTextWrapper>
             <P color={theme.colors.textRed} size={theme.fontSize.big}>{tempMax}</P>
-            <P size={theme.fontSize.big}>°C</P>
+            <P size={theme.fontSize.big} opaque>°C</P>
           </InlineTextWrapper>
         </FlexContainer>
       </Temperatures>

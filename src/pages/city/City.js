@@ -6,7 +6,6 @@ import { Button } from '../../elements/Button'
 import { getCityByName } from '../../api/openWeather'
 import AutoInput from '../../components/AutoInput'
 import CityDetailed from '../../components/city/CityDetailed'
-import { theme } from '../../styles/theme'
 import { H3 } from '../../elements/H'
 
 const Wrapper = styled(FlexContainer)`
@@ -15,7 +14,9 @@ const Wrapper = styled(FlexContainer)`
 
   justify-content: flex-start;
 
-  background-color: ${theme.colors.primaryLighter};
+  background: #757F9A;
+  background: -webkit-linear-gradient(to right, #D7DDE8, #757F9A);
+  background: linear-gradient(to right, #D7DDE8, #757F9A);
 `
 
 const Form = styled.form`

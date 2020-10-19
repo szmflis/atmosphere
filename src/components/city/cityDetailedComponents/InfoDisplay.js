@@ -18,7 +18,7 @@ const InfoDisplay = ({
 
 InfoDisplay.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   unit: PropTypes.string,
   pad: PropTypes.string,
   color: PropTypes.string,
@@ -27,7 +27,7 @@ InfoDisplay.propTypes = {
 InfoDisplay.defaultProps = {
   pad: '0',
   unit: null,
-  color: theme.colors.textBlue
+  color: theme.colors.textBlue,
 }
 
 export default InfoDisplay
