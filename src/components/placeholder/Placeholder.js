@@ -7,10 +7,11 @@
 import styled, { keyframes } from 'styled-components'
 import React from 'react'
 import PropTypes from 'prop-types'
+import { theme } from '../../styles/theme'
 
 const StyledPlaceholder = styled.div`
-  margin: 2rem;
-  width: 400px;
+  margin: 5px;
+  width: ${({ width }) => width};
   background-color: #eee;
 `
 
@@ -30,15 +31,22 @@ const AnimatedBackground = styled.div`
   animation-name: ${PlaceholderShimmer};
   animation-timing-function: linear;
   background: darkgray;
-  background: linear-gradient(to right, #eeeeee 10%, #dddddd 18%, #eeeeee 33%);
+  background: linear-gradient(
+    to right,
+    ${theme.colors.greyLighter} 10%,
+    ${theme.colors.greyLight} 18%,
+    ${theme.colors.greyLighter} 33%
+  );
   background-size: 800px 154px;
   height: ${({ height }) => height};
   position: relative;
+
+  border-radius: ${({ circle }) => circle ? '50%' : '16px'};
 `
 
-const Placeholder = ({ height, width }) => (
+const Placeholder = ({ height, width, circle }) => (
   <StyledPlaceholder width={width}>
-    <AnimatedBackground height={height}>
+    <AnimatedBackground height={height} circle={circle}>
     </AnimatedBackground>
   </StyledPlaceholder>
 )
@@ -46,11 +54,13 @@ const Placeholder = ({ height, width }) => (
 Placeholder.propTypes = {
   height: PropTypes.string,
   width: PropTypes.string,
+  circle: PropTypes.bool,
 }
 
 Placeholder.defaultProps = {
   height: '20px',
-  width: '400px',
+  width: '300px',
+  circle: false,
 }
 
 export default Placeholder

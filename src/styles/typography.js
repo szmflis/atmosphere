@@ -9,7 +9,9 @@ export const montVariants = {
   mont300,
   mont400,
   mont500,
-  mont600
+  mont600,
+  mont700,
+  mont800
 }
 
 export default {
@@ -17,10 +19,12 @@ export default {
   fontSizeBaseRem: '1.4rem',
   fontColorBase: '#081719',
   fontWeight: {
+    thinExtra: 300,
     thin: 400,
     regular: 500,
     semibold: 600,
     bold: 700,
+    boldExtra: 800,
   },
   fontSize: {
     smallest: '1rem',

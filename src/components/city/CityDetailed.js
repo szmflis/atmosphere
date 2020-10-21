@@ -8,6 +8,7 @@ import { H2, H4 } from '../../elements/H'
 import Forecast from './cityDetailedComponents/Forecast'
 import CurrentWeatherPanel from './cityDetailedComponents/CurrentWeatherPanel'
 import CurrentAirQPanel from './cityDetailedComponents/CurrentAirQPanel'
+import PlaceholderPanel from '../placeholder/PlaceholderPanel'
 
 const PanelsContainer = styled(FlexContainer)`
   flex-direction: row;
@@ -30,29 +31,38 @@ const CityDetailed = ({
   const [currentWeatherData, setCurrentWeatherData] = useState(null)
   const [hourlyWeatherForecastData, setHourlyWeatherForecastData] = useState(null)
   const [dailyWeatherForecastData, setDailyWeatherForecastData] = useState(null)
+  const [weatherStatus, setWeatherStatus] = useState(null)
+
   const [currentAirQualityData, setCurrentAirQualityData] = useState(null)
-  const [airQualityForecastData, setAirQualityForecastData] = useState(null)
+  const [airQualityForecastData, setAirQualityForecastData] = useState(null) // future
+  const [airQuailtyStatus, setAirQuailtyStatus] = useState(null)
+
+  const resetState = () => {
+    setCurrentWeatherData(null)
+    setHourlyWeatherForecastData(null)
+    setDailyWeatherForecastData(null)
+    setCurrentAirQualityData(null)
+    setAirQualityForecastData(null)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
+      resetState()
       const weatherData = await getCityByCoords(lat, lon)
       if (!weatherData.status && !weatherData.error) {
         setCurrentWeatherData(weatherData.current)
         setHourlyWeatherForecastData(weatherData.hourly)
         setDailyWeatherForecastData(weatherData.daily)
       } else {
-        // TODO handle errors
+        setWeatherStatus('error')
       }
 
       const airQualityData = await getCityByName(name)
-      console.log(airQualityData.data)
       if (airQualityData.status === 'ok') {
         setCurrentAirQualityData(airQualityData.data)
-        if (airQualityData.data.forecast.daily) {
-          setAirQualityForecastData(airQualityData.data.forecast.daily)
-        }
+        setAirQualityForecastData(airQualityData.data.forecast.daily)
       } else {
-        // TODO handle errors | not founds
+        setAirQuailtyStatus('error')
       }
     }
     fetchData()
@@ -91,7 +101,7 @@ const CityDetailed = ({
         <Column>
           {
             currentWeatherData === null
-              ? <p>waiting for data</p>
+              ? <PlaceholderPanel status={weatherStatus} />
               : <CurrentWeatherPanel
                 currentTime={currentWeatherData.dt}
                 sunrise={currentWeatherData.sunrise}
@@ -110,7 +120,7 @@ const CityDetailed = ({
           }
           {
             currentAirQualityData === null
-              ? <p>waiting for data</p>
+              ? <PlaceholderPanel status={airQuailtyStatus} />
               : <CurrentAirQPanel
                 airQualityIndex={currentAirQualityData.aqi}
                 dominentPollutant={currentAirQualityData.dominentpol}
@@ -125,12 +135,12 @@ const CityDetailed = ({
         <Column>
           {
             hourlyWeatherForecastData === null
-              ? <p>waiting for data ...</p>
+              ? <PlaceholderPanel status={weatherStatus} />
               : <Forecast data={formatHourlyForecastData(hourlyWeatherForecastData)} title="48 hour weather forecast" />
           }
           {
             dailyWeatherForecastData === null
-              ? <p>waiting for data ...</p>
+              ? <PlaceholderPanel status={weatherStatus} />
               : <Forecast data={formatDailyForecastData(dailyWeatherForecastData)} title="7 day weather forecast" />
           }
         </Column>

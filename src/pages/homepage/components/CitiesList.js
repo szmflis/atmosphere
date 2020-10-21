@@ -7,7 +7,7 @@ const Wrapper = styled(FlexContainer)`
   width: 100vw;
   flex-direction: row;
   flex-wrap: wrap;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 `
 
 const CitiesList = () => {

@@ -12,7 +12,7 @@ const StyledWrapper = styled(FlexContainer)`
   background-size: cover;
   background-position: center;
   width: 100vw;
-  height: 800px;
+  height: 100vh;
   align-items: flex-start;
 `
 

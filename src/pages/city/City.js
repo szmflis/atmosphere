@@ -73,7 +73,7 @@ const City = () => {
       <Form onSubmit={getWeather} autoComplete="off">
         <H3 alignCenter marBot="1rem">Check any city weather&air quality</H3>
         <AutoInput />
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" mar="2rem">
           Get Weather
         </Button>
       </Form>

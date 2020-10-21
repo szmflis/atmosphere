@@ -12,6 +12,7 @@ export const Button = styled.button`
   outline: none;
   border: none;
   color: ${theme.colors.white};
+  font-family: inherit;
 
   &:hover {
     color: ${theme.colors.white};
@@ -25,11 +26,11 @@ export const Button = styled.button`
   justify-content: center;
   align-items: center;
 
-  width: 250px;
+  width: ${({ width }) => width || '250px'};
   height: 50px;
 
   box-shadow: ${theme.effects.boxShadowPrimary};
-  border-radius: 8px;
+  border-radius: 3rem;
 
   transition: all .3s;
 
@@ -39,8 +40,4 @@ export const Button = styled.button`
   /* applying styling from styled-system variants */
   /* all variants are in root/styles/variants/buttons dir */
   ${buttonVariant}
-`
-
-export const DestinationButton = styled(Button)`
-  /* To rewrite */
 `

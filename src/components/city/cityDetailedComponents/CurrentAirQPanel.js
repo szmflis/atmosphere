@@ -36,6 +36,7 @@ const AirQIndexBox = styled(FlexContainer)`
   border-radius: 1rem;
   margin-right: 2rem;
   padding: 1rem;
+  min-width: 80px;
 
   box-shadow: ${theme.effects.boxShadowPrimary};
 `
@@ -103,6 +104,7 @@ const CurrentAirQPanel = ({
                 />
               )
             }
+            return null
           })
         }
       </PollutantsContainer>
