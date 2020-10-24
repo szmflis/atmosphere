@@ -5,6 +5,7 @@ import { getCityByCoords } from '../../api/openWeather'
 import { getCityByName } from '../../api/airQuality'
 import { FlexContainer } from '../../elements/FlexContainer'
 import { H2, H4 } from '../../elements/H'
+import { weatherForecastProps, airQualityForecastProps } from '../../utils/forecastsProps'
 import Forecast from './cityDetailedComponents/Forecast'
 import CurrentWeatherPanel from './cityDetailedComponents/CurrentWeatherPanel'
 import CurrentAirQPanel from './cityDetailedComponents/CurrentAirQPanel'
@@ -21,8 +22,7 @@ const PanelsContainer = styled(FlexContainer)`
 `
 
 const Column = styled(FlexContainer)`
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
 `
 
 const CityDetailed = ({
@@ -93,6 +93,30 @@ const CityDetailed = ({
     return formattedData
   }
 
+  const formatAirQData = (daily) => {
+    let dates = Object.entries(daily)[0][1].map(o => {
+      return {
+        dt: Math.round(new Date(o.day).getTime() / 1000)
+      }
+    })
+
+    Object.entries(daily).forEach(arr => {
+      arr[1].forEach(obj => {
+        dates = dates.map(date => {
+          if (date.dt === Math.round(new Date(obj.day).getTime() / 1000)) {
+            return {
+              ...date,
+              [arr[0]]: obj.avg
+            }
+          }
+          return date
+        })
+      })
+    })
+
+    return dates
+  }
+
   return (
     <>
       <H2 alignCenter bold>{name}, {country}</H2>
@@ -135,13 +159,30 @@ const CityDetailed = ({
         <Column>
           {
             hourlyWeatherForecastData === null
-              ? <PlaceholderPanel status={weatherStatus} />
-              : <Forecast data={formatHourlyForecastData(hourlyWeatherForecastData)} title="48 hour weather forecast" />
+              ? <PlaceholderPanel status={weatherStatus} width="750px" />
+              : <Forecast
+                data={formatHourlyForecastData(hourlyWeatherForecastData)}
+                forecastProps={weatherForecastProps}
+                title="48 hour weather forecast"
+              />
           }
           {
             dailyWeatherForecastData === null
-              ? <PlaceholderPanel status={weatherStatus} />
-              : <Forecast data={formatDailyForecastData(dailyWeatherForecastData)} title="7 day weather forecast" />
+              ? <PlaceholderPanel status={weatherStatus} width="750px" />
+              : <Forecast
+                data={formatDailyForecastData(dailyWeatherForecastData)}
+                forecastProps={weatherForecastProps}
+                title="7 day weather forecast"
+              />
+          }
+          {
+            airQualityForecastData === null
+              ? <PlaceholderPanel status={airQuailtyStatus} width="750px" />
+              : <Forecast
+                data={formatAirQData(airQualityForecastData)}
+                forecastProps={airQualityForecastProps}
+                title="Short term pollutant forecast"
+              />
           }
         </Column>
       </PanelsContainer>

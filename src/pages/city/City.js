@@ -7,6 +7,7 @@ import { getCityByName } from '../../api/openWeather'
 import AutoInput from '../../components/AutoInput'
 import CityDetailed from '../../components/city/CityDetailed'
 import { H3 } from '../../elements/H'
+import { theme } from '../../styles/theme'
 
 const Wrapper = styled(FlexContainer)`
   width: 100vw;
@@ -17,6 +18,8 @@ const Wrapper = styled(FlexContainer)`
   background: #757F9A;
   background: -webkit-linear-gradient(to right, #D7DDE8, #757F9A);
   background: linear-gradient(to right, #D7DDE8, #757F9A);
+
+  animation: ${theme.keyframes.fadeIn} .5s;
 `
 
 const Form = styled.form`
@@ -25,25 +28,15 @@ const Form = styled.form`
   align-items: center;
   justify-content: center;
 
-  padding: 8rem;
+  padding: 8rem 2rem;
   width: 100%;
-  position: relative;
 `
-
-/*
-  City component handles getting input/url parameters,
-  calling most basic api from openweathermap to get
-  city parameters, id and such, then passing that to
-  CityDetailed which handles rest of the requests
-  to more detailed apis.
-*/
 
 const City = () => {
   const [results, setResults] = useState(null)
   const { cityname } = useParams()
   const history = useHistory()
 
-  /* Handles getting data if search parameters specified in url */
   useEffect(() => {
     const fetchData = async () => {
       const data = await getCityByName(cityname)
@@ -56,7 +49,6 @@ const City = () => {
     if (cityname) fetchData()
   }, [cityname])
 
-  /* Handles getting data if search parameters submitted via form */
   const getWeather = async (event) => {
     event.preventDefault()
     history.push(`/city/${event.target.cityInput.value}`)
@@ -71,7 +63,7 @@ const City = () => {
   return (
     <Wrapper>
       <Form onSubmit={getWeather} autoComplete="off">
-        <H3 alignCenter marBot="1rem">Check any city weather&air quality</H3>
+        <H3 alignCenter marBot="2rem">Check any city weather&air quality</H3>
         <AutoInput />
         <Button type="submit" variant="primary" mar="2rem">
           Get Weather

@@ -14,12 +14,11 @@ const Wrapper = styled.div`
 
   background-color: ${theme.colors.greyLightest};
 
-  margin: 2rem;
+  margin: 1rem;
   border-radius: 8px;
 
   @media ( max-width: 900px ) {
-    width: 90vw;
-    max-width: 850px;
+    width: 95vw;
   }
 
   box-shadow: ${theme.effects.boxShadowPrimary};
@@ -40,63 +39,23 @@ const TypeButton = styled(Button)`
   border-radius: 0;
   width: auto;
   height: 30px;
+  margin: 0.4rem;
+  border-radius: 8px;
 `
 
 const ButtonsContainer = styled(FlexContainer)`
   padding: 2rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
 `
 
-const Forecast = ({ data, title }) => {
-  const [selectedButton, setSelectedButton] = useState(0)
-  const [forecastType, setForecastType] = useState({
-    type: 'temp',
-    title: 'Temperature',
-    unit: '°C',
-    color: theme.colors.lineRed,
-  })
+const Forecast = ({ data, title, forecastProps }) => {
+  const [selectedButton, setSelectedButton] = useState(forecastProps[0].type)
+  const [forecastType, setForecastType] = useState(forecastProps[0])
 
-  const handleButtonClick = (id) => {
-    setSelectedButton(id)
-    switch (id) {
-      case 0:
-        setForecastType({
-          type: 'temp', title: 'Temperature', unit: '°C', color: theme.colors.lineRed
-        })
-        break
-      case 1:
-        setForecastType({
-          type: 'pressure', title: 'Pressure', unit: 'hPa', color: theme.colors.lineTurkoise
-        })
-        break
-      case 2:
-        setForecastType({
-          type: 'pop', title: 'Chance of rain', unit: '%', color: theme.colors.lineBlue
-        })
-        break
-      case 3:
-        setForecastType({
-          type: 'humidity', title: 'Humidity', unit: '%', color: theme.colors.lineBlue
-        })
-        break
-      case 4:
-        setForecastType({
-          type: 'wind_speed', title: 'Wind speed', unit: 'm/s', color: theme.colors.linePurple
-        })
-        break
-      case 5:
-        setForecastType({
-          type: 'uvi', title: 'UV Index', unit: '', color: theme.colors.linePurple
-        })
-        break
-      case 6:
-        setForecastType({
-          type: 'rain', title: 'Rain', unit: 'mm', color: theme.colors.lineBlue
-        })
-        break
-      default:
-        //
-    }
+  const handleButtonClick = (type) => {
+    setSelectedButton(type)
+    setForecastType(forecastProps.find(o => o.type === type))
   }
 
   const getTimeSpan = () => {
@@ -107,87 +66,36 @@ const Forecast = ({ data, title }) => {
     </H5>
   }
 
+  const renderButtons = () => {
+    const dataProperties = Object.getOwnPropertyNames(data[0])
+    const forecastProperties = forecastProps.map(forecastObj => forecastObj.type)
+    const sharedProperties = forecastProperties.filter(property => {
+      if (dataProperties.includes(property)) return true
+      return false
+    })
+    return sharedProperties.map(property => {
+      const buttonProps = forecastProps.find(element => element.type === property)
+      return <TypeButton
+        variant="primary"
+        type="button"
+        key={buttonProps.type}
+        id={buttonProps.type}
+        onClick={() => handleButtonClick(buttonProps.type)}
+        selectedButton={selectedButton}
+      >
+        {buttonProps.title}
+      </TypeButton>
+    })
+  }
+
   return (
-    /*
-      TODO render buttons smarter.
-    */
     <Wrapper>
       <Header>
         <H3 alignCenter bold>{title}</H3>
         {getTimeSpan()}
       </Header>
       <ButtonsContainer row>
-        <TypeButton
-          variant="primary"
-          type="button"
-          onClick={() => handleButtonClick(0)}
-          id={0}
-          selectedButton={selectedButton}
-        >
-          Temperature
-        </TypeButton>
-        <TypeButton
-          variant="primary"
-          type="button"
-          onClick={() => handleButtonClick(1)}
-          id={1}
-          selectedButton={selectedButton}
-        >
-          Pressure
-        </TypeButton>
-        <TypeButton
-          variant="primary"
-          type="button"
-          onClick={() => handleButtonClick(2)}
-          id={2}
-          selectedButton={selectedButton}
-        >
-          Rain chance
-        </TypeButton>
-        <TypeButton
-          variant="primary"
-          type="button"
-          onClick={() => handleButtonClick(3)}
-          id={3}
-          selectedButton={selectedButton}
-        >
-          Humidity
-        </TypeButton>
-        <TypeButton
-          variant="primary"
-          type="button"
-          onClick={() => handleButtonClick(4)}
-          id={4}
-          selectedButton={selectedButton}
-        >
-          Wind speed
-        </TypeButton>
-        {
-          data[0].uvi
-            ? <TypeButton
-              variant="primary"
-              type="button"
-              onClick={() => handleButtonClick(5)}
-              id={5}
-              selectedButton={selectedButton}
-            >
-              UV Index
-            </TypeButton>
-            : null
-        }
-        {
-          data[0].rain
-            ? <TypeButton
-              variant="primary"
-              type="button"
-              onClick={() => handleButtonClick(6)}
-              id={6}
-              selectedButton={selectedButton}
-            >
-              Rain (mm)
-            </TypeButton>
-            : null
-        }
+        {renderButtons()}
       </ButtonsContainer>
       <LinearChart
         data={data}
@@ -201,18 +109,24 @@ const Forecast = ({ data, title }) => {
 }
 
 Forecast.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      dt: PropTypes.number,
-      pressure: PropTypes.number,
-      pop: PropTypes.number,
-      temp: PropTypes.number,
-      wind_speed: PropTypes.number,
-      uvi: PropTypes.number,
-      rain: PropTypes.oneOfType([PropTypes.number, PropTypes.object])
-    })
-  ).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    dt: PropTypes.number,
+    pressure: PropTypes.number,
+    pop: PropTypes.number,
+    temp: PropTypes.number,
+    wind_speed: PropTypes.number,
+    uvi: PropTypes.number,
+    rain: PropTypes.oneOfType([PropTypes.number, PropTypes.object])
+  })).isRequired,
   title: PropTypes.string.isRequired,
+  forecastProps: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      title: PropTypes.string,
+      unit: PropTypes.string,
+      color: PropTypes.string,
+    })
+  ).isRequired
 }
 
 export default Forecast

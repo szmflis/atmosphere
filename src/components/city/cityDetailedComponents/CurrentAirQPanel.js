@@ -14,11 +14,10 @@ import InfoDisplay from './InfoDisplay'
 
 const Wrapper = styled(FlexContainer)`
   width: 420px;
-  margin: 2rem;
+  margin: 1rem;
 
   @media ( max-width: 440px ) {
-    width: 100%;
-    margin: 1rem;
+    width: 95vw;
   }
 
   box-shadow: ${theme.effects.boxShadowPrimary};

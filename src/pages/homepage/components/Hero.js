@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { theme } from '../../../styles/theme'
 import { FlexContainer } from '../../../elements/FlexContainer'
 import { H1, H3 } from '../../../elements/H'
 import { P } from '../../../elements/P'
@@ -14,6 +15,8 @@ const StyledWrapper = styled(FlexContainer)`
   width: 100vw;
   height: 100vh;
   align-items: flex-start;
+
+  animation: ${theme.keyframes.fadeIn} 0.5s;  
 `
 
 const TextContainer = styled(FlexContainer)`

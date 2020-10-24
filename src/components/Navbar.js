@@ -41,16 +41,11 @@ const NavElement = styled(Link)`
     opacity: 1;
   }
 
-  /*
-    Each transition specified separately to avoid
-    animating margin and font-size changes from medias.
-  */
   transition: opacity .3s, background-size .3s;
 
-  /* medias */
   @media ( max-width: 640px ) {
     margin: 0;
-    font-size: ${theme.fontSize.regular};
+    font-size: 4vw;
   }
 `
 

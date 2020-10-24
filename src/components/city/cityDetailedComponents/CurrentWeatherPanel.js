@@ -15,11 +15,10 @@ import InfoDisplay from './InfoDisplay'
 
 const StyledWrapper = styled(FlexContainer)`
   width: 420px;
-  margin: 2rem;
+  margin: 1rem;
 
   @media ( max-width: 440px ) {
-    width: 100%;
-    margin: 1rem;
+    width: 95vw;
   }
 
   border-radius: 8px;

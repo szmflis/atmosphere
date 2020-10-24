@@ -66,17 +66,15 @@ const LinearChart = ({
 }
 
 LinearChart.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      dt: PropTypes.number,
-      pressure: PropTypes.number,
-      pop: PropTypes.number,
-      temp: PropTypes.number,
-      wind_speed: PropTypes.number,
-      uvi: PropTypes.number,
-      rain: PropTypes.oneOfType([PropTypes.number, PropTypes.object])
-    })
-  ).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    dt: PropTypes.number,
+    pressure: PropTypes.number,
+    pop: PropTypes.number,
+    temp: PropTypes.number,
+    wind_speed: PropTypes.number,
+    uvi: PropTypes.number,
+    rain: PropTypes.oneOfType([PropTypes.number, PropTypes.object])
+  })).isRequired,
   type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   unit: PropTypes.string.isRequired,

@@ -7,17 +7,20 @@ import Error from '../Error'
 import { theme } from '../../styles/theme'
 
 const Wrapper = styled(FlexContainer)`
-  width: 420px;
-  margin: 2rem;
+  width: ${({ width }) => width};
+  margin: 1rem;
+
+  max-width: 500px;
 
   @media ( max-width: 440px ) {
-    width: 100%;
-    margin: 1rem;
+    width: 95vw;
   }
 
   box-shadow: ${theme.effects.boxShadowPrimary};
   border-radius: 8px;
   background-color: ${theme.colors.greyLightest};
+
+  animation: ${theme.keyframes.fadeIn} 0.5s;
 `
 
 const Section = styled(FlexContainer)`
@@ -30,9 +33,9 @@ const PlaceholderRow = styled(FlexContainer)`
   justify-content: space-between;
 `
 
-const PlaceholderPanel = ({ status }) => {
+const PlaceholderPanel = ({ status, width }) => {
   return (
-    <Wrapper justify="flex-start">
+    <Wrapper justify="flex-start" width={width}>
       {
         status === 'error'
           ? (
@@ -95,10 +98,12 @@ const PlaceholderPanel = ({ status }) => {
 
 PlaceholderPanel.propTypes = {
   status: PropTypes.string,
+  width: PropTypes.string,
 }
 
 PlaceholderPanel.defaultProps = {
   status: 'ok',
+  width: '420px',
 }
 
 export default PlaceholderPanel

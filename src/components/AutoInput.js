@@ -1,34 +1,28 @@
-/*
-  AutoInput
-  Value accessible through event.target.addressInput.value
-  Any api offering autocompletion can be used with this component.
-*/
-
 import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { theme } from '../styles/theme'
 import { getAutocomplete } from '../api/autocomplete'
 import { P } from '../elements/P'
+import { FlexContainer } from '../elements/FlexContainer'
 
 const StyledHereInput = styled.input`
   background-color: ${theme.colors.greyLighter};
   font-size: ${theme.fontSize.big};
 
   padding: 2rem;
-  margin: 2rem;
+  margin: 1rem;
 
-  width: 800px;
+  width: 600px;
   height: 50px;
   border-radius: 8px;
 
-  position: relative;
   border: none;
   box-shadow: ${theme.effects.boxShadowPrimary};
   
   &:focus {
     outline: none;
   }
-  @media (max-width: 900px) {
+  @media (max-width: 700px) {
     width: 90vw;
   }
 `
@@ -36,17 +30,13 @@ const StyledHereInput = styled.input`
 const SuggestionsDropdown = styled.div`
   visibility: ${({ suggestions }) => suggestions.length === 0 ? 'hidden' : 'visible'};
   
-  transform: translateY(20rem);
-  position: absolute;
-  top: 0;
-  
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
   border-radius: 8px;
 
-  width: 800px;
+  width: 600px;
   @media (max-width: 900px) {
     width: 90vw;
   }
@@ -109,31 +99,22 @@ const AutoInput = () => {
   }
 
   const handleKeyPress = ({ keyCode }) => {
-    // downstroke
     if (keyCode === 40 && selectedSuggestion !== suggestions.length - 1) {
       setSelectedSuggestion(selectedSuggestion + 1)
       console.log(suggestions)
-      /*
-        query is also set with selectedSuggestion +- 1 and not
-        selectedSuggestion because states are asynchronous
-        and query would always be one change behind selectedSuggestion
-      */
       setQuery(suggestions[selectedSuggestion + 1].name)
     }
 
-    // upstroke
     if (keyCode === 38 && selectedSuggestion !== 0) {
       setSelectedSuggestion(selectedSuggestion - 1)
       setQuery(suggestions[selectedSuggestion - 1].name)
     }
 
-    // enter
     if (keyCode === 13) {
       setQuery(suggestions[selectedSuggestion].name)
       setSuggestions([])
     }
 
-    // esc
     if (keyCode === 27) {
       setSuggestions([])
     }
@@ -149,7 +130,7 @@ const AutoInput = () => {
   }
 
   return (
-    <>
+    <FlexContainer>
       <StyledHereInput
         name="cityInput"
         placeholder="Name of any city"
@@ -173,7 +154,7 @@ const AutoInput = () => {
           </Suggestion>)
         }
       </SuggestionsDropdown>
-    </>
+    </FlexContainer>
   )
 }
 
