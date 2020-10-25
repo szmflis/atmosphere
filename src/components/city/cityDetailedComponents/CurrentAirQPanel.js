@@ -11,6 +11,7 @@ import { Anchor } from '../../../elements/Anchor'
 import { FlexContainer } from '../../../elements/FlexContainer'
 import { theme } from '../../../styles/theme'
 import InfoDisplay from './InfoDisplay'
+import DoughnutChart from '../../chart/DoughnutChart'
 
 const Wrapper = styled(FlexContainer)`
   width: 420px;
@@ -55,6 +56,11 @@ const Attributions = styled(PaddedSection)`
   border-radius: 0px 0px 8px 8px;
 `
 
+const ChartsContainer = styled(FlexContainer)`
+  background-color: ${theme.colors.greyLightest};
+  width: 100%;
+`
+
 const CurrentAirQPanel = ({
   airQualityIndex,
   dominentPollutant,
@@ -63,6 +69,8 @@ const CurrentAirQPanel = ({
   attributions,
   name
 }) => {
+  console.log(pollutantsObject)
+
   return (
     <Wrapper>
       <Header row justify="space-between">
@@ -91,22 +99,30 @@ const CurrentAirQPanel = ({
         </P>
         <H4>Pollutants</H4>
         {
-          ['no2', 'pm10', 'pm25', 'so2', 'o3', 'co'].map(pollutantName => {
-            if (pollutantsObject[pollutantName]) {
-              return (
-                <InfoDisplay
-                  key={pollutantName}
-                  name={pollutantName}
-                  value={pollutantsObject[pollutantName].v}
-                  unit={pollutantName === dominentPollutant ? 'μg/m3 - dominent pollutant' : 'μg/m3'}
-                  pad="1rem 0rem"
-                />
-              )
-            }
-            return null
+          pollutantsObject.map(pollutant => {
+            return (
+              <InfoDisplay
+                key={pollutant.pollutantName}
+                name={pollutant.pollutantName}
+                value={pollutant.pollutantValue}
+                unit={pollutant.pollutantName === dominentPollutant ? 'μg/m3 - dominent pollutant' : 'μg/m3'}
+                pad="1rem 0rem"
+              />
+            )
           })
         }
       </PollutantsContainer>
+      <ChartsContainer>
+        <DoughnutChart
+          data={pollutantsObject.map(pollutant => {
+            return {
+              propName: pollutant.pollutantName,
+              propValue: pollutant.pollutantValue,
+            }
+          })}
+          unit="μg/m3"
+        />
+      </ChartsContainer>
       <Attributions align="flex-start">
         <H4 marBot="1rem">Attributions</H4>
         {attributions.map(attribution => (

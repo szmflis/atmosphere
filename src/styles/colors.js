@@ -43,6 +43,8 @@ export default {
   lineRed: 'rgba(255, 0, 0, 1)',
   lineTurkoise: 'rgba(0, 105, 120, 1)',
   linePurple: 'rgba(133, 0, 145, 1)',
+  lineBrightBlue: 'rgba(52, 204, 224, 1)',
+  lineOrange: 'rgba(255, 132, 0, 1)',
 
   /* AIR QUALITY */
   airQgood: '#009966',

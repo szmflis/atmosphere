@@ -93,7 +93,7 @@ const CityDetailed = ({
     return formattedData
   }
 
-  const formatAirQData = (daily) => {
+  const formatAirQForecastData = (daily) => {
     let dates = Object.entries(daily)[0][1].map(o => {
       return {
         dt: Math.round(new Date(o.day).getTime() / 1000)
@@ -115,6 +115,23 @@ const CityDetailed = ({
     })
 
     return dates
+  }
+
+  const formatPollutantsCurrentAirQData = (pollutantsObject) => {
+    console.log(pollutantsObject)
+    return ['no2', 'pm10', 'pm25', 'so2', 'o3', 'co']
+      .filter(pollutant => {
+        if (pollutantsObject[pollutant]) return true
+        return false
+      })
+      .map(
+        pollutant => {
+          return {
+            pollutantName: pollutant,
+            pollutantValue: pollutantsObject[pollutant].v
+          }
+        }
+      )
   }
 
   return (
@@ -148,7 +165,7 @@ const CityDetailed = ({
               : <CurrentAirQPanel
                 airQualityIndex={currentAirQualityData.aqi}
                 dominentPollutant={currentAirQualityData.dominentpol}
-                pollutantsObject={currentAirQualityData.iaqi}
+                pollutantsObject={formatPollutantsCurrentAirQData(currentAirQualityData.iaqi)}
                 measurementDateUnix={currentAirQualityData.time.v}
                 attributions={currentAirQualityData.attributions}
                 name={name}
@@ -179,7 +196,7 @@ const CityDetailed = ({
             airQualityForecastData === null
               ? <PlaceholderPanel status={airQuailtyStatus} width="750px" />
               : <Forecast
-                data={formatAirQData(airQualityForecastData)}
+                data={formatAirQForecastData(airQualityForecastData)}
                 forecastProps={airQualityForecastProps}
                 title="Short term pollutant forecast"
               />
