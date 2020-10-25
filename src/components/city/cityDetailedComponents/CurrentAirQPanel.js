@@ -21,43 +21,35 @@ const Wrapper = styled(FlexContainer)`
     width: 95vw;
   }
 
-  box-shadow: ${theme.effects.boxShadowPrimary};
   border-radius: 8px;
+  box-shadow: ${theme.effects.boxShadowPrimary};
+  background-color: ${theme.colors.greyLightest};
 `
 
 const PaddedSection = styled(FlexContainer)`
+  background-color: ${({ color }) => color};
   width: 100%;
   padding: 2rem;
 `
 
 const AirQIndexBox = styled(FlexContainer)`
-  //required to pass
   background-color: ${({ color }) => color};
-  border-radius: 1rem;
-  margin-right: 2rem;
-  padding: 1rem;
-  min-width: 80px;
-
   box-shadow: ${theme.effects.boxShadowPrimary};
+  border-radius: 8px;
+  min-width: 100px;
+  padding: 1rem;
 `
 
 const Header = styled(PaddedSection)`
-  background-color: ${theme.colors.greyLighter};
   border-radius: 8px 8px 0px 0px;
 `
 
-const PollutantsContainer = styled(PaddedSection)`
-  background-color: ${theme.colors.greyLightest};
-`
-
 const Attributions = styled(PaddedSection)`
-  background-color: ${theme.colors.greyLightest};
   padding: 0rem 2rem 2rem 2rem;
   border-radius: 0px 0px 8px 8px;
 `
 
 const ChartsContainer = styled(FlexContainer)`
-  background-color: ${theme.colors.greyLightest};
   width: 100%;
 `
 
@@ -73,7 +65,7 @@ const CurrentAirQPanel = ({
 
   return (
     <Wrapper>
-      <Header row justify="space-between">
+      <Header row justify="space-between" color={theme.colors.greyLighter}>
         <FlexContainer align="flex-start" justify="center">
           <H4 bold>Current AQI</H4>
           <P>Last updated on</P>
@@ -93,7 +85,7 @@ const CurrentAirQPanel = ({
           </H5>
         </AirQIndexBox>
       </Header>
-      <PollutantsContainer align="flex-start">
+      <PaddedSection align="flex-start">
         <P marBot="2rem">
           {getInfoFromAirQ(airQualityIndex)}
         </P>
@@ -111,7 +103,7 @@ const CurrentAirQPanel = ({
             )
           })
         }
-      </PollutantsContainer>
+      </PaddedSection>
       <ChartsContainer>
         <DoughnutChart
           data={pollutantsObject.map(pollutant => {

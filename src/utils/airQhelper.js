@@ -13,12 +13,12 @@ const healthImplications = {
   Functions within this file take air quality index, and return
   color corresponding to it, and short description of health implications.
 
-  Everything is recieved by two different functions,
+  Everything is recieved by different functions,
   making just one and returning an object
   is a viable option, and is probably a tidier one.
   However i want to get color from airQ index and the text in all sorts of places,
   sometimes getting just the color, sometimes just text, which makes this approach
-  more reasonable in that particular case.
+  more reasonable.
 */
 
 export const getColorFromAirQ = airQindex => {

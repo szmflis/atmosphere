@@ -23,44 +23,31 @@ const StyledWrapper = styled(FlexContainer)`
 
   border-radius: 8px;
   box-shadow: ${theme.effects.boxShadowPrimary};
+  background-color: ${theme.colors.greyLightest};
 `
 
 const InfoSection = styled(FlexContainer)`
+  background-color: ${({ color }) => color};
   padding: 2rem;
   width: 100%;
 `
 
 const Header = styled(InfoSection)`
-  background-color: ${theme.colors.greyLight};
   border-radius: 8px 8px 0px 0px;
   padding: 0rem 2rem;
 `
 
-const Temperatures = styled(InfoSection)`
-  background-color: ${theme.colors.greyLighter};
+const Footer = styled(InfoSection)`
+  border-radius: 0px 0px 8px 8px;
+  padding: 1rem;
 `
 
-const OtherInfo = styled(InfoSection)`
-  background-color: ${theme.colors.greyLightest};
-`
-
-const SunriseSundown = styled(InfoSection)`
-  background-color: ${theme.colors.greyLightest};
-`
-
-const WindInformation = styled(FlexContainer)`
-  background-color: ${theme.colors.greyLightest};
-  width: 100%;
+const WindInformation = styled(InfoSection)`
+  padding: 0rem;
 `
 
 const Arrow = styled(Icon)`
   transform: ${({ deg }) => `rotate(${deg}deg)`};
-`
-
-const Footer = styled(InfoSection)`
-  background-color: ${theme.colors.greyLightest};
-  padding: 1rem;
-  border-radius: 0px 0px 8px 8px;
 `
 
 const CurrentWeatherPanel = ({
@@ -73,7 +60,7 @@ const CurrentWeatherPanel = ({
   return (
     <StyledWrapper>
 
-      <Header row justify="space-between">
+      <Header row justify="space-between" color={theme.colors.greyLight}>
         <div>
           <H4>Current weather</H4>
           <P bold color={theme.colors.textBlue}>{weatherArr[0].description}&nbsp;</P>
@@ -81,7 +68,8 @@ const CurrentWeatherPanel = ({
         <Icon src={iconGetter(weatherArr[0].icon)} size="75px" />
       </Header>
 
-      <Temperatures row justify="space-around">
+      {/* Temperatures */}
+      <InfoSection row justify="space-around" color={theme.colors.greyLighter}>
         <FlexContainer>
           <P size={theme.fontSize.small}>Lowest possible</P>
           <InlineTextWrapper>
@@ -105,9 +93,10 @@ const CurrentWeatherPanel = ({
             <P size={theme.fontSize.big} opaque>°C</P>
           </InlineTextWrapper>
         </FlexContainer>
-      </Temperatures>
+      </InfoSection>
 
-      <OtherInfo align="flex-start">
+      {/* Pressure, humidity, windspeed etc. */}
+      <InfoSection align="flex-start">
         <InfoDisplay name="Pressure" value={pressure} unit="hPa" pad="1rem 0rem" />
         <InfoDisplay name="Humidity" value={humidity} unit="%" pad="1rem 0rem" />
         <InfoDisplay name="Dew point" value={dewpoint} unit="°C" pad="1rem 0rem" />
@@ -123,9 +112,10 @@ const CurrentWeatherPanel = ({
             <P>S</P>
           </FlexContainer>
         </WindInformation>
-      </OtherInfo>
+      </InfoSection>
 
-      <SunriseSundown row justify="space-around">
+      {/* Sunrise, Sundown */}
+      <InfoSection row justify="space-around">
         <FlexContainer>
           <IconSunrise />
           <InfoDisplay
@@ -146,7 +136,7 @@ const CurrentWeatherPanel = ({
             color={theme.colors.textRed}
           />
         </FlexContainer>
-      </SunriseSundown>
+      </InfoSection>
 
       <Footer>
         <P opaque alignCenter>

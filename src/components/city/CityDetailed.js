@@ -6,6 +6,7 @@ import { getCityByName } from '../../api/airQuality'
 import { FlexContainer } from '../../elements/FlexContainer'
 import { H2, H4 } from '../../elements/H'
 import { weatherForecastProps, airQualityForecastProps } from '../../utils/forecastsProps'
+import { unixDateFromString } from '../../utils/utilFunctions'
 import Forecast from './cityDetailedComponents/Forecast'
 import CurrentWeatherPanel from './cityDetailedComponents/CurrentWeatherPanel'
 import CurrentAirQPanel from './cityDetailedComponents/CurrentAirQPanel'
@@ -34,7 +35,7 @@ const CityDetailed = ({
   const [weatherStatus, setWeatherStatus] = useState(null)
 
   const [currentAirQualityData, setCurrentAirQualityData] = useState(null)
-  const [airQualityForecastData, setAirQualityForecastData] = useState(null) // future
+  const [airQualityForecastData, setAirQualityForecastData] = useState(null)
   const [airQuailtyStatus, setAirQuailtyStatus] = useState(null)
 
   const resetState = () => {
@@ -96,14 +97,14 @@ const CityDetailed = ({
   const formatAirQForecastData = (daily) => {
     let dates = Object.entries(daily)[0][1].map(o => {
       return {
-        dt: Math.round(new Date(o.day).getTime() / 1000)
+        dt: unixDateFromString(o.day)
       }
     })
 
     Object.entries(daily).forEach(arr => {
       arr[1].forEach(obj => {
         dates = dates.map(date => {
-          if (date.dt === Math.round(new Date(obj.day).getTime() / 1000)) {
+          if (date.dt === unixDateFromString(obj.day)) {
             return {
               ...date,
               [arr[0]]: obj.avg
