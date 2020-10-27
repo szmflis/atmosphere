@@ -1,12 +1,23 @@
 <a href="https://imgur.com/Md7ZIBt"><img src="https://i.imgur.com/Md7ZIBt.png" title="source: imgur.com" /></a>
-Atmosphere is a simple application displaying weather and air quality information. <br></br>
-Weather information is courtesy of openweathermap.org<br></br>
-Air quality is not yet implemented.<br></br>
+<a href="https://atmosphere.netlify.app/">Site on Netlify</a><br>
 
-Built using react.<br></br>
-For now api requests are made directly from client side since there is no fast<br></br>
-provider for server sides that's also free (probably gonna end up using heroku).<br></br>
+<h3>What it is<h3/>
+<p>Atmosphere is a site showing general information about atmosphere in a given input city</p>
+<br>
+<p>
+  Information includes air quality, different pollutants concentration, pressure, humidity temperatures, aswell as forecasts
+  of weather data and air quality pollutant data.
+</p>
+<br>
 
-Current Version - 0.2<br></br>
+<h3>Built using</h3>
+<p>
+  React with styled-components, styled-system, chartjs.
+  openweathermap.org free apis - for weather data.
+  aqicn.org free api - for air quality data.
+</p>
 
-Version 0.3 - Air quality info, different city card views (compact/detailed)<br></br>
+<h3>Version</h3>
+<p>
+  0.4 - currently
+</p>
