@@ -1,6 +1,3 @@
-
-![](http://i.imgur.com/OUkLi.gif)
-<img src="http://i.imgur.com/OUkLi.gif" width="700px" height="300px" />
 Atmosphere is a simple application displaying weather and air quality information. <br></br>
 Weather information is courtesy of openweathermap.org<br></br>
 Air quality is not yet implemented.<br></br>
