@@ -1,3 +1,5 @@
+
+![](http://i.imgur.com/OUkLi.gif)
 Atmosphere is a simple application displaying weather and air quality information. <br></br>
 Weather information is courtesy of openweathermap.org<br></br>
 Air quality is not yet implemented.<br></br>
