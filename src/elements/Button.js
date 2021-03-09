@@ -25,10 +25,10 @@ export const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  width: ${({ width }) => width || '250px'};
   height: 50px;
-
+  
+  padding: 0 2rem;
+  
   box-shadow: ${theme.effects.boxShadowPrimary};
   border-radius: 3rem;
 
@@ -36,7 +36,7 @@ export const Button = styled.button`
 
   /* Adjustable values */
   margin: ${({ mar }) => mar};
-
+  
   /* applying styling from styled-system variants */
   /* all variants are in root/styles/variants/buttons dir */
   ${buttonVariant}

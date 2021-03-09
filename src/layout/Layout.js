@@ -32,10 +32,6 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden!important;
   }
 
-  ::-webkit-scrollbar {
-    display: none;
-  }
-
   body {
     font-family: ${theme.fonts.montserrat};
     background: ${theme.colors.white};
@@ -53,10 +49,12 @@ const GlobalStyle = createGlobalStyle`
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
+
+  background-color: #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
 `
 
 const Layout = ({ children }) => {
