@@ -7,3 +7,12 @@ Nasa and autocomplete api demo. Made using react with styled-components and leaf
 Also available on netlify
 
 ### [Site on netlify](https://frosty-archimedes-db6f17.netlify.app/)
+
+### To run on your machine
+
+####In terminal:
+
+git clone https://github.com/szmflis/nasa_demo \
+cd nasa_demo \
+npm install \
+npm start
